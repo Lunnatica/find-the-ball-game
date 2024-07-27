@@ -19,7 +19,7 @@ describe("CupContainer", () => {
   });
 
   describe("initial state", () => {
-    it.only("should render the the ball if the cup with the ball is lifted", () => {
+    it("should render the the ball if the cup with the ball is lifted", () => {
       render(<CupContainer cups={mockCups} />);
       const cups = screen.getAllByTestId("cup");
       screen.debug();
