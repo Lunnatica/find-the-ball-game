@@ -9,7 +9,19 @@ import {
 import { CupInterface, GameState } from "../types/types";
 import { chooseRandomCup, exchangeTwoCups } from "../lib/game-logic";
 
-const GameContext = createContext({});
+type GameContext = {
+  gameState: GameState;
+  cups: CupInterface[];
+  startGame: () => void;
+  endGame: (chosenCup: number) => void;
+};
+
+const GameContext = createContext<GameContext>({
+  gameState: "initial",
+  cups: [],
+  startGame: () => {},
+  endGame: () => {},
+});
 
 interface ProviderProps {
   children: ReactNode;
@@ -24,7 +36,21 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
   const [gameState, setGameState] = useState<GameState>("initial");
 
   const startGame = () => {
+    setCups((cups) =>
+      cups.map((cup) => ({
+        ...cup,
+        isLifted: false,
+      }))
+    );
     setGameState("shuffling");
+  };
+
+  const endGame = (chosenCup: number) => {
+    if (chosenCup === cupWithBall) {
+      setGameState("win");
+    } else {
+      setGameState("lose");
+    }
   };
 
   useEffect(() => {
@@ -66,20 +92,12 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
   }, [gameState, setCups, setGameState]);
 
   return (
-    <GameContext.Provider value={{ gameState, cups, startGame }}>
+    <GameContext.Provider value={{ gameState, cups, startGame, endGame }}>
       {children}
     </GameContext.Provider>
   );
 };
 
-type UseGameContext = () => {
-  gameState: GameState;
-  setGameState: (gameState: GameState) => void;
-  cups: CupInterface[];
-  setCups: React.Dispatch<React.SetStateAction<CupInterface[]>>;
-  startGame: () => void;
-};
-
-const useGameContext = (() => useContext(GameContext)) as UseGameContext;
+const useGameContext = () => useContext(GameContext);
 
 export { GameContextProvider, useGameContext };
