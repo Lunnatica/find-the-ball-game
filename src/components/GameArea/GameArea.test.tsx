@@ -73,4 +73,32 @@ describe("GameArea", () => {
 
     it.todo("should keep the ball under the same cup");
   });
+
+  // TODO: fix these tests
+  // describe("when the game is in the finished shuffling state", () => {
+  //   beforeEach(async () => {
+  //     jest.useFakeTimers();
+  //     const user = userEvent.setup();
+  //     render(<GameArea />);
+
+  //     const startButton = screen.getByText("Start game!");
+  //     await user.click(startButton);
+
+  //     await act(async () => {
+  //       jest.advanceTimersByTime(NUMBER_OF_SHUFFLES * 1000);
+  //     });
+  //   });
+
+  //   afterEach(() => {
+  //     jest.useRealTimers();
+  //   });
+
+  //   it("should not show the ball", () => {
+  //     expect(screen.queryByTestId("ball")).not.toBeInTheDocument();
+  //   });
+
+  //   it("should prompt the user to choose a cup", () => {
+  //     expect(screen.getByText("Guess where the ball is!")).toBeInTheDocument();
+  //   });
+  // });
 });
