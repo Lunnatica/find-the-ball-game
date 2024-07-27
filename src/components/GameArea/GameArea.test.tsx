@@ -15,5 +15,11 @@ describe("GameArea", () => {
     expect(cups).toHaveLength(3);
   });
 
-  describe("when the game is in the initial state", () => {});
+  describe("when the game is in the initial state", () => {
+    it("should render a Start game button", () => {
+      render(<GameArea />);
+      const startButton = screen.getByText("Start game!");
+      expect(startButton).toBeInTheDocument();
+    });
+  });
 });

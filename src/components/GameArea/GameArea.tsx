@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import { CupContainer } from "../CupContainer/CupContainer";
 
 export type GameState =
@@ -10,11 +11,16 @@ export type GameState =
 
 const INITIAL_NUMBER_OF_CUPS = 3;
 
+const chooseRandomCup = (numberOfCups: number): number =>
+  Math.floor(Math.random() * numberOfCups);
+
 export const GameArea: React.FC = () => {
+  const [cupWithBall, setCupWithBall] = useState<number | undefined>();
   const [gameState, setGameState] = useState<GameState>("initial");
-  const [cupWithBall, setCupWithBall] = useState(
-    Math.floor(Math.random() * INITIAL_NUMBER_OF_CUPS)
-  );
+
+  useEffect(() => {
+    setCupWithBall(chooseRandomCup(INITIAL_NUMBER_OF_CUPS));
+  }, []);
 
   return (
     <main data-testid="game-area">
@@ -24,6 +30,9 @@ export const GameArea: React.FC = () => {
         setGameState={setGameState}
         cupWithBall={cupWithBall}
       />
+      {["initial", "win", "lose"].includes(gameState) && (
+        <button>Start game!</button>
+      )}
     </main>
   );
 };

@@ -3,7 +3,7 @@ import { Cup } from "../Cup/Cup";
 
 interface ContainerProps {
   numberOfCups: number;
-  cupWithBall: number;
+  cupWithBall?: number;
   gameState: GameState;
   setGameState: (gameState: GameState) => void;
 }
