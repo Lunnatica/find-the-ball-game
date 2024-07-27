@@ -1,7 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { GameArea, NUMBER_OF_SHUFFLES } from "./GameArea";
+import { exchangeTwoCups } from "../../lib/game-logic";
 
-import { GameArea } from "./GameArea";
+jest.mock("../../lib/game-logic", () => ({
+  ...jest.requireActual("../../lib/game-logic"),
+  exchangeTwoCups: jest.fn(),
+}));
 
 describe("GameArea", () => {
   it("should render the cup container", () => {
@@ -60,5 +65,12 @@ describe("GameArea", () => {
     it("should show the shuffling message", () => {
       expect(screen.getByText("Shuffling...")).toBeInTheDocument();
     });
+
+    // TODO: fix tests
+    // it(`should call the exchangeTwoCups function ${NUMBER_OF_SHUFFLES} times`, () => {
+    //   expect(exchangeTwoCups).toHaveBeenCalledTimes(NUMBER_OF_SHUFFLES);
+    // });
+
+    it.todo("should keep the ball under the same cup");
   });
 });

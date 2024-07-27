@@ -56,6 +56,7 @@ export const GameArea: React.FC = () => {
   };
 
   useEffect(() => {
+    // TODO: use requestAnimationFrame instead of setInterval
     if (gameState === "shuffling") {
       const interval = setInterval(() => {
         setCups((cups) => exchangeTwoCups(cups));
