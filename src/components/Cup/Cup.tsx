@@ -2,11 +2,7 @@ import React from "react";
 
 import { CupInterface } from "../../types/types";
 
-export const Cup: React.FC<CupInterface> = ({
-  id,
-  hasBall = false,
-  isLifted = false,
-}) => {
+export const Cup: React.FC<CupInterface> = ({ id, hasBall, isLifted }) => {
   return (
     <div>
       <div data-testid={`cup-${id}`}>Cup {id}</div>
