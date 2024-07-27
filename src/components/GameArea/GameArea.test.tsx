@@ -8,4 +8,12 @@ describe("GameArea", () => {
     const cupContainer = screen.getByTestId("cup-container");
     expect(cupContainer).toBeInTheDocument();
   });
+
+  it("should render the initial number of cups", () => {
+    render(<GameArea />);
+    const cups = screen.getAllByTestId("cup");
+    expect(cups).toHaveLength(3);
+  });
+
+  describe("when the game is in the initial state", () => {});
 });
