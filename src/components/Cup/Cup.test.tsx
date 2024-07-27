@@ -1,4 +1,7 @@
 import { render, screen } from "@testing-library/react";
+import userEvent, { UserEvent } from "@testing-library/user-event";
+
+import { GameContext, initialContext } from "../../contexts/GameContext";
 import { Cup } from "./Cup";
 
 const MOCK_ID = 1;
@@ -38,6 +41,44 @@ describe("Cup", () => {
         render(<Cup id={MOCK_ID} hasBall={false} isLifted={false} />);
         expect(screen.queryByTestId("ball")).not.toBeInTheDocument();
       });
+    });
+  });
+
+  describe("when the game is not in the playing state", () => {
+    it("should disable the Cup button", () => {
+      render(<Cup id={MOCK_ID} hasBall={false} isLifted={false} />);
+      expect(screen.getByText(`Cup ${MOCK_ID}`)).toBeDisabled();
+    });
+  });
+
+  describe("when the game is in the playing state", () => {
+    let mockEndGame: jest.Mock;
+    let user: UserEvent;
+
+    beforeEach(() => {
+      mockEndGame = jest.fn();
+      user = userEvent.setup();
+      render(
+        <GameContext.Provider
+          value={{
+            ...initialContext,
+            gameState: "playing",
+            endGame: mockEndGame,
+          }}
+        >
+          <Cup id={MOCK_ID} hasBall={false} isLifted={false} />
+        </GameContext.Provider>
+      );
+    });
+
+    it("should enable the Cup button", () => {
+      expect(screen.getByText(`Cup ${MOCK_ID}`)).toBeEnabled();
+    });
+
+    it("should call the endGame function when the Cup button is clicked", async () => {
+      await user.click(screen.getByText(`Cup ${MOCK_ID}`));
+
+      expect(mockEndGame).toHaveBeenCalledWith(MOCK_ID);
     });
   });
 });

@@ -16,12 +16,14 @@ type GameContext = {
   endGame: (chosenCup: number) => void;
 };
 
-const GameContext = createContext<GameContext>({
+export const initialContext: GameContext = {
   gameState: "initial",
   cups: [],
   startGame: () => {},
   endGame: () => {},
-});
+};
+
+export const GameContext = createContext<GameContext>(initialContext);
 
 interface ProviderProps {
   children: ReactNode;
