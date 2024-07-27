@@ -22,7 +22,6 @@ describe("CupContainer", () => {
     it("should render the the ball if the cup with the ball is lifted", () => {
       render(<CupContainer cups={mockCups} />);
       const cups = screen.getAllByTestId("cup");
-      screen.debug();
       expect(cups[1].querySelector("[data-testid='ball']")).toBeInTheDocument();
     });
   });
