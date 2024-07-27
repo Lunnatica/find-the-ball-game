@@ -57,11 +57,21 @@ export const GameArea: React.FC = () => {
 
   useEffect(() => {
     if (gameState === "shuffling") {
-      for (let i = 0; i < NUMBER_OF_SHUFFLES; i++) {
-        exchangeTwoCups(cups);
-      }
+      const interval = setInterval(() => {
+        setCups((cups) => exchangeTwoCups(cups));
+      }, 1000);
+
+      const timeout = setTimeout(() => {
+        clearInterval(interval);
+        setGameState("finished_shuffling");
+      }, NUMBER_OF_SHUFFLES * 1000);
+
+      return () => {
+        clearInterval(interval);
+        clearTimeout(timeout);
+      };
     }
-  }, [cups, gameState]);
+  }, [gameState]);
 
   return (
     <main data-testid="game-area">
