@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import { GameArea } from "./GameArea";
 
@@ -25,6 +26,16 @@ describe("GameArea", () => {
     it("should show the ball under one of the cups", () => {
       render(<GameArea />);
       expect(screen.getByTestId("ball")).toBeInTheDocument();
+    });
+
+    it("should hide the button after clicking the Start game button", async () => {
+      const user = userEvent.setup();
+      render(<GameArea />);
+      const startButton = screen.getByText("Start game!");
+
+      await user.click(startButton);
+
+      expect(startButton).not.toBeInTheDocument();
     });
   });
 });

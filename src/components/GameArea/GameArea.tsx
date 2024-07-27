@@ -18,6 +18,10 @@ export const GameArea: React.FC = () => {
   const [cupWithBall, setCupWithBall] = useState<number | undefined>();
   const [gameState, setGameState] = useState<GameState>("initial");
 
+  const startGame = () => {
+    setGameState("shuffling");
+  };
+
   useEffect(() => {
     setCupWithBall(chooseRandomCup(INITIAL_NUMBER_OF_CUPS));
   }, []);
@@ -31,7 +35,9 @@ export const GameArea: React.FC = () => {
         cupWithBall={cupWithBall}
       />
       {["initial", "win", "lose"].includes(gameState) && (
-        <button>Start game!</button>
+        <button type="button" onClick={startGame}>
+          Start game!
+        </button>
       )}
     </main>
   );
