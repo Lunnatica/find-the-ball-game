@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { chooseRandomCup } from "../../lib/game-logic";
 import { CupContainer } from "../CupContainer/CupContainer";
 
 export type GameState =
@@ -10,9 +11,6 @@ export type GameState =
   | "lose";
 
 const INITIAL_NUMBER_OF_CUPS = 3;
-
-const chooseRandomCup = (numberOfCups: number): number =>
-  Math.floor(Math.random() * numberOfCups);
 
 const renderUserMessage = (gameState: GameState) => {
   switch (gameState) {

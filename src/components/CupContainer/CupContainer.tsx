@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { GameState } from "../../components/GameArea/GameArea";
+import { CupInterface } from "../../types/types";
 import { Cup } from "../Cup/Cup";
 
 interface ContainerProps {
@@ -10,19 +11,13 @@ interface ContainerProps {
   setGameState: (gameState: GameState) => void;
 }
 
-interface Cup {
-  id: number;
-  hasBall: boolean;
-  isLifted: boolean;
-}
-
 export const CupContainer: React.FC<ContainerProps> = ({
   numberOfCups = 3,
   cupWithBall,
   gameState,
   setGameState,
 }) => {
-  const [cups, setCups] = useState<Cup[]>([]);
+  const [cups, setCups] = useState<CupInterface[]>([]);
 
   useEffect(() => {
     let cups = [];

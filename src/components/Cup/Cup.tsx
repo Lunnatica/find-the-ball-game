@@ -1,17 +1,15 @@
 import React from "react";
 
-interface CupProps {
-  hasBall?: boolean;
-  isLifted?: boolean;
-}
+import { CupInterface } from "../../types/types";
 
-export const Cup: React.FC<CupProps> = ({
+export const Cup: React.FC<CupInterface> = ({
+  id,
   hasBall = false,
   isLifted = false,
 }) => {
   return (
     <div>
-      <h1>Cup</h1>
+      <div data-testid={`cup-${id}`}>Cup {id}</div>
       {hasBall && isLifted && <div data-testid="ball">Ball</div>}
     </div>
   );
