@@ -21,5 +21,10 @@ describe("GameArea", () => {
       const startButton = screen.getByText("Start game!");
       expect(startButton).toBeInTheDocument();
     });
+
+    it("should show the ball under one of the cups", () => {
+      render(<GameArea />);
+      expect(screen.getByTestId("ball")).toBeInTheDocument();
+    });
   });
 });
