@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { chooseRandomCup } from "../../lib/game-logic";
+import { chooseRandomCup, exchangeTwoCups } from "../../lib/game-logic";
 import { CupContainer } from "../CupContainer/CupContainer";
+import { CupInterface } from "../../types/types";
 
 export type GameState =
   | "initial"
@@ -11,6 +12,7 @@ export type GameState =
   | "lose";
 
 const INITIAL_NUMBER_OF_CUPS = 3;
+export const NUMBER_OF_SHUFFLES = 4;
 
 const renderUserMessage = (gameState: GameState) => {
   switch (gameState) {
@@ -28,23 +30,42 @@ const renderUserMessage = (gameState: GameState) => {
 export const GameArea: React.FC = () => {
   const [cupWithBall, setCupWithBall] = useState<number | undefined>();
   const [gameState, setGameState] = useState<GameState>("initial");
+  const [cups, setCups] = useState<CupInterface[]>([]);
+
+  useEffect(() => {
+    if (gameState === "initial") {
+      setCupWithBall(chooseRandomCup(INITIAL_NUMBER_OF_CUPS));
+    }
+
+    let generatedCups = [];
+    for (let i = 0; i < INITIAL_NUMBER_OF_CUPS; i++) {
+      generatedCups.push({
+        id: i,
+        hasBall: cupWithBall === i,
+        isLifted:
+          gameState === "initial" ||
+          gameState === "win" ||
+          gameState === "lose",
+      });
+    }
+    setCups(generatedCups);
+  }, [cupWithBall, gameState]);
 
   const startGame = () => {
     setGameState("shuffling");
   };
 
   useEffect(() => {
-    setCupWithBall(chooseRandomCup(INITIAL_NUMBER_OF_CUPS));
-  }, []);
+    if (gameState === "shuffling") {
+      for (let i = 0; i < NUMBER_OF_SHUFFLES; i++) {
+        exchangeTwoCups(cups);
+      }
+    }
+  }, [cups, gameState]);
 
   return (
     <main data-testid="game-area">
-      <CupContainer
-        numberOfCups={INITIAL_NUMBER_OF_CUPS}
-        gameState={gameState}
-        setGameState={setGameState}
-        cupWithBall={cupWithBall}
-      />
+      <CupContainer cups={cups} />
       {["initial", "win", "lose"].includes(gameState) && (
         <button type="button" onClick={startGame}>
           Start game!
