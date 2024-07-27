@@ -14,9 +14,7 @@ export const Cup: React.FC<CupInterface> = ({ id, hasBall, isLifted }) => {
         data-testid={`cup-${id}`}
         onClick={() => endGame(id)}
         disabled={gameState !== "playing"}
-      >
-        Cup {id}
-      </StyledCup>
+      />
       {hasBall && isLifted && <StyledBall data-testid="ball" />}
     </div>
   );

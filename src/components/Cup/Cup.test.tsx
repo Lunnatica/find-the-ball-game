@@ -9,7 +9,7 @@ const MOCK_ID = 1;
 describe("Cup", () => {
   it("should render the component", () => {
     render(<Cup id={MOCK_ID} hasBall={false} isLifted={false} />);
-    expect(screen.getByText(`Cup ${MOCK_ID}`)).toBeInTheDocument();
+    expect(screen.getByTestId(`cup-${MOCK_ID}`)).toBeInTheDocument();
   });
 
   describe("when the cup has the ball", () => {
@@ -47,7 +47,7 @@ describe("Cup", () => {
   describe("when the game is not in the playing state", () => {
     it("should disable the Cup button", () => {
       render(<Cup id={MOCK_ID} hasBall={false} isLifted={false} />);
-      expect(screen.getByText(`Cup ${MOCK_ID}`)).toBeDisabled();
+      expect(screen.getByTestId(`cup-${MOCK_ID}`)).toBeDisabled();
     });
   });
 
@@ -72,11 +72,11 @@ describe("Cup", () => {
     });
 
     it("should enable the Cup button", () => {
-      expect(screen.getByText(`Cup ${MOCK_ID}`)).toBeEnabled();
+      expect(screen.getByTestId(`cup-${MOCK_ID}`)).toBeEnabled();
     });
 
     it("should call the endGame function when the Cup button is clicked", async () => {
-      await user.click(screen.getByText(`Cup ${MOCK_ID}`));
+      await user.click(screen.getByTestId(`cup-${MOCK_ID}`));
 
       expect(mockEndGame).toHaveBeenCalledWith(MOCK_ID);
     });
