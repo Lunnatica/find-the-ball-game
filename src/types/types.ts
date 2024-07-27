@@ -4,9 +4,4 @@ export interface CupInterface {
   isLifted: boolean;
 }
 
-export type GameState =
-  | "initial"
-  | "shuffling"
-  | "finished_shuffling"
-  | "win"
-  | "lose";
+export type GameState = "initial" | "shuffling" | "playing" | "win" | "lose";

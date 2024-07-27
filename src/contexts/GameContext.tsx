@@ -81,7 +81,7 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
 
       const timeout = setTimeout(() => {
         clearInterval(interval);
-        setGameState("finished_shuffling");
+        setGameState("playing");
       }, NUMBER_OF_SHUFFLES * 1000);
 
       return () => {
