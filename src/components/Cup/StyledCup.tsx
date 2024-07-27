@@ -44,9 +44,7 @@ export const StyledCup = styled.button`
 export const StyledBall = styled.div`
   width: 20px;
   height: 20px;
-  background: #f0ad4e; /* Gold color for the ball */
-  border-radius: 50%; /* Perfect circle */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Soft shadow for a 3D effect */
-  position: absolute;
-  bottom: 10px; /* Positioned at the bottom of the chest */
+  background: #f0ad4e;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 `;
