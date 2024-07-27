@@ -17,6 +17,12 @@ describe("GameArea", () => {
   });
 
   describe("when the game is in the initial state", () => {
+    it("should render the initial user message", () => {
+      render(<GameArea />);
+      const userMessage = screen.getByText("Guess where the ball is!");
+      expect(userMessage).toBeInTheDocument();
+    });
+
     it("should render a Start game button", () => {
       render(<GameArea />);
       const startButton = screen.getByText("Start game!");
@@ -36,6 +42,23 @@ describe("GameArea", () => {
       await user.click(startButton);
 
       expect(startButton).not.toBeInTheDocument();
+    });
+  });
+
+  describe("when the game is in the shuffling state", () => {
+    beforeEach(async () => {
+      const user = userEvent.setup();
+      render(<GameArea />);
+      const startButton = screen.getByText("Start game!");
+      await user.click(startButton);
+    });
+
+    it("should hide the ball", () => {
+      expect(screen.queryByTestId("ball")).not.toBeInTheDocument();
+    });
+
+    it("should show the shuffling message", () => {
+      expect(screen.getByText("Shuffling...")).toBeInTheDocument();
     });
   });
 });

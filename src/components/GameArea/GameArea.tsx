@@ -14,6 +14,19 @@ const INITIAL_NUMBER_OF_CUPS = 3;
 const chooseRandomCup = (numberOfCups: number): number =>
   Math.floor(Math.random() * numberOfCups);
 
+const renderUserMessage = (gameState: GameState) => {
+  switch (gameState) {
+    case "win":
+      return <p aria-live="polite">You win!</p>;
+    case "lose":
+      return <p aria-live="polite">You lose!</p>;
+    case "shuffling":
+      return <p aria-live="polite">Shuffling...</p>;
+    default:
+      return <p aria-live="polite">Guess where the ball is!</p>;
+  }
+};
+
 export const GameArea: React.FC = () => {
   const [cupWithBall, setCupWithBall] = useState<number | undefined>();
   const [gameState, setGameState] = useState<GameState>("initial");
@@ -39,6 +52,7 @@ export const GameArea: React.FC = () => {
           Start game!
         </button>
       )}
+      {renderUserMessage(gameState)}
     </main>
   );
 };
