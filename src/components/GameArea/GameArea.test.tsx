@@ -1,6 +1,6 @@
 import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { GameArea, NUMBER_OF_SHUFFLES } from "./GameArea";
+import { GameArea } from "./GameArea";
 import { exchangeTwoCups } from "../../lib/game-logic";
 import { GameContextProvider } from "../../contexts/GameContext";
 
