@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { chooseRandomCup, exchangeTwoCups } from "../../lib/game-logic";
+import { GameState } from "../../types/types";
 import { CupContainer } from "../CupContainer/CupContainer";
-import { CupInterface } from "../../types/types";
+import { useGameContext } from "../../contexts/GameContext";
 
-export type GameState =
-  | "initial"
-  | "shuffling"
-  | "finished_shuffling"
-  | "win"
-  | "lose";
-
-const INITIAL_NUMBER_OF_CUPS = 3;
 export const NUMBER_OF_SHUFFLES = 4;
 
 const renderUserMessage = (gameState: GameState) => {
@@ -28,28 +21,7 @@ const renderUserMessage = (gameState: GameState) => {
 };
 
 export const GameArea: React.FC = () => {
-  const [cupWithBall, setCupWithBall] = useState<number | undefined>();
-  const [gameState, setGameState] = useState<GameState>("initial");
-  const [cups, setCups] = useState<CupInterface[]>([]);
-
-  useEffect(() => {
-    if (gameState === "initial") {
-      setCupWithBall(chooseRandomCup(INITIAL_NUMBER_OF_CUPS));
-    }
-
-    let generatedCups = [];
-    for (let i = 0; i < INITIAL_NUMBER_OF_CUPS; i++) {
-      generatedCups.push({
-        id: i,
-        hasBall: cupWithBall === i,
-        isLifted:
-          gameState === "initial" ||
-          gameState === "win" ||
-          gameState === "lose",
-      });
-    }
-    setCups(generatedCups);
-  }, [cupWithBall, gameState]);
+  const { gameState, setGameState, cups, setCups } = useGameContext();
 
   const startGame = () => {
     setGameState("shuffling");
@@ -72,7 +44,7 @@ export const GameArea: React.FC = () => {
         clearTimeout(timeout);
       };
     }
-  }, [gameState]);
+  }, [gameState, setCups, setGameState]);
 
   return (
     <main data-testid="game-area">
