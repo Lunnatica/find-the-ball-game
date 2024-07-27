@@ -33,7 +33,7 @@ describe("GameArea", () => {
   describe("when the game is in the initial state", () => {
     it("should render the initial user message", () => {
       renderGameAreaWithContext();
-      const userMessage = screen.getByText("Guess where the ball is!");
+      const userMessage = screen.getByText("Guess where the treasure is!");
       expect(userMessage).toBeInTheDocument();
     });
 
@@ -107,7 +107,7 @@ describe("GameArea", () => {
   //   });
 
   //   it("should prompt the user to choose a cup", () => {
-  //     expect(screen.getByText("Guess where the ball is!")).toBeInTheDocument();
+  //     expect(screen.getByText("Guess where the treasure is!")).toBeInTheDocument();
   //   });
   // });
 });

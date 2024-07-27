@@ -11,7 +11,7 @@ const renderUserMessage = (gameState: GameState) => {
     case "shuffling":
       return <p aria-live="polite">Shuffling...</p>;
     default:
-      return <p aria-live="polite">Guess where the ball is!</p>;
+      return <p aria-live="polite">Guess where the treasure is!</p>;
   }
 };
 
