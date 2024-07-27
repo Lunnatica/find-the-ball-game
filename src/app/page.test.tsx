@@ -10,9 +10,8 @@ describe("Main page", () => {
     ).toBeDefined();
   });
 
-  it("should render a cup container", () => {
+  it("should render a GameArea component", () => {
     render(<Home />);
-    const cupContainer = screen.getByTestId("cup-container");
-    expect(cupContainer).toBeDefined();
+    expect(screen.getByTestId("game-area")).toBeDefined();
   });
 });

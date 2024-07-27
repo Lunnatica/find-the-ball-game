@@ -1,4 +1,4 @@
-import { GameState } from "../../app/page";
+import { GameState } from "../../components/GameArea/GameArea";
 import { Cup } from "../Cup/Cup";
 
 interface ContainerProps {
