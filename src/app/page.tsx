@@ -1,0 +1,14 @@
+"use client";
+
+import { Header } from "../components/Header";
+
+export default function Home() {
+  return (
+    <>
+      <Header />
+      <main>
+        <button>Ayy</button>
+      </main>
+    </>
+  );
+}
