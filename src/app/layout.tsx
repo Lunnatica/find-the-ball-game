@@ -9,8 +9,8 @@ import StyledComponentsRegistry from "../lib/registry";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "name-app",
-  description: "name-app",
+  title: "find-the-ball-game",
+  description: "find-the-ball-game",
 };
 
 export default function RootLayout({
