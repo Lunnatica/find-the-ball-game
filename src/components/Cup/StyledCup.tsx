@@ -1,30 +1,43 @@
 import styled from "styled-components";
 
-export const StyledCup = styled.button`
-  color: white;
-  width: 120px;
-  height: 80px;
-  background: #8b5a2b; /* Wood color */
-  border-radius: 20px 20px 10px 10px; /* Rounded top */
-  border: 4px solid #6f4f28; /* Darker border */
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for 3D effect */
-  overflow: hidden;
-  z-index: 1;
+import cupImage from "../../../public/cup.png";
+import scallopImage from "../../../public/scallop.png";
+import seashellImage from "../../../public/seashell.png";
+import shellImage from "../../../public/shell.png";
 
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 20px;
-    background: #6f4f28; /* Darker wood color for the top band */
-    border-radius: 10px 10px 0 0;
-    top: 0;
-    left: 0;
-    box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.2); /* Inner shadow */
+// TODO: Decide image and delete the ones not used
+
+export const StyledCup = styled.button`
+  cursor: pointer;
+  /* background: url(${cupImage.src}) no-repeat center center;
+  background-size: contain;
+  width: 150px;
+  height: 150px;
+  border: none;
+  transform: rotateX(180deg); */
+
+  /* background: url(${scallopImage.src}) no-repeat center center;
+  background-size: contain;
+  min-height: 100px;
+  min-width: 100px;
+  border: none;
+  transform: rotateX(180deg); */
+
+  background: url(${seashellImage.src}) no-repeat center center;
+  background-size: contain;
+  min-height: 100px;
+  min-width: 100px;
+  border: none;
+  transform: rotateX(180deg);
+
+  /* background: url(${shellImage.src}) no-repeat center center;
+  background-size: contain;
+  min-height: 100px;
+  min-width: 100px;
+  border: none; */
+
+  &:disabled {
+    cursor: not-allowed;
   }
 `;
 
