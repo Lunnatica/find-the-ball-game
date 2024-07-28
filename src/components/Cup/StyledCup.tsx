@@ -12,6 +12,7 @@ import shellImage from "../../../public/shell.png";
 export const StyledCup = styled(animated.button)<{
   $animate?: boolean;
   $animation?: string;
+  $isLifted?: boolean;
 }>`
   cursor: pointer;
   /* background: url(${cupImage.src}) no-repeat center center;
@@ -33,7 +34,6 @@ export const StyledCup = styled(animated.button)<{
   min-height: 100px;
   min-width: 100px;
   border: none;
-  transform: rotateX(180deg);
 
   /* background: url(${shellImage.src}) no-repeat center center;
   background-size: contain;
@@ -47,6 +47,15 @@ export const StyledCup = styled(animated.button)<{
 
   /* animation: ${(props) => props.$animation}; */
 
+  // When isLitfed is true, the cup is lifted
+
+  ${(props) =>
+    props.$isLifted &&
+    css`
+      transform: translateY(-50px);
+      transition: transform 0.5s ease;
+    `}
+
   ${(props) =>
     props.$animate &&
     css`
@@ -58,7 +67,7 @@ export const StyledBall = styled.div`
   width: 20px;
   height: 20px;
   background: #f0ad4e;
-  margin: 3rem auto 0 auto;
+  margin: 1rem auto 0 auto;
   border-radius: 50%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 `;

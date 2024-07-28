@@ -6,7 +6,7 @@ export const StyledGameArea = styled.main`
   align-items: center;
   height: 100vh;
   gap: 1rem;
-  padding: 8rem 1rem;
+  padding: 15rem 1rem;
   font-size: 1.5rem;
 `;
 
