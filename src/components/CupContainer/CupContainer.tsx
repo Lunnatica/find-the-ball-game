@@ -1,12 +1,11 @@
+import { useGameContext } from "../../contexts/GameContext";
 import { CupInterface } from "../../types/types";
 import { Cup } from "../Cup/Cup";
 import { StyledCupContainer } from "./StyledCupContainer";
 
-interface ContainerProps {
-  cups: CupInterface[];
-}
+export const CupContainer: React.FC = () => {
+  const { cups } = useGameContext();
 
-export const CupContainer: React.FC<ContainerProps> = ({ cups }) => {
   return (
     <StyledCupContainer data-testid="cup-container">
       {cups.map(({ id }) => (

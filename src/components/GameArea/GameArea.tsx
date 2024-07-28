@@ -37,11 +37,11 @@ const renderUserMessage = (gameState: GameState) => {
 };
 
 export const GameArea: React.FC = () => {
-  const { gameState, cups, startGame } = useGameContext();
+  const { gameState, startGame } = useGameContext();
 
   return (
     <StyledGameArea data-testid="game-area">
-      <CupContainer cups={cups} />
+      <CupContainer />
       {renderUserMessage(gameState)}
       {["initial", "win", "lose"].includes(gameState) && (
         <StyledStartButton type="button" onClick={startGame}>
