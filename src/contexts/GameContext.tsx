@@ -59,6 +59,28 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
     setGameState(chosenCup === cupWithBall ? "win" : "lose");
   };
 
+  const swapCups = () => {
+    setCups((prevCups) => {
+      const [index1, index2] = getIndicesToSwap(prevCups);
+      const newCups = [...prevCups];
+
+      const temp = newCups[index1];
+      newCups[index1] = newCups[index2];
+      newCups[index2] = temp;
+
+      setAnimations({
+        [index1]: css`
+          ${swapAnimation(index1 * 70, 0, index2 * 70, 0)}
+        `,
+        [index2]: css`
+          ${swapAnimation(index2 * 70, 0, index1 * 70, 0)}
+        `,
+      });
+
+      return newCups;
+    });
+  };
+
   useEffect(() => {
     if (gameState === "initial") {
       setCupWithBall(chooseRandomCup(INITIAL_NUMBER_OF_CUPS));
@@ -73,27 +95,7 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
     }
 
     if (gameState === "shuffling") {
-      const interval = setInterval(() => {
-        setCups((prevCups) => {
-          const [index1, index2] = getIndicesToSwap(prevCups);
-          const newCups = [...prevCups];
-
-          const temp = newCups[index1];
-          newCups[index1] = newCups[index2];
-          newCups[index2] = temp;
-
-          setAnimations({
-            [index1]: css`
-              ${swapAnimation(index1 * 70, 0, index2 * 70, 0)}
-            `,
-            [index2]: css`
-              ${swapAnimation(index2 * 70, 0, index1 * 70, 0)}
-            `,
-          });
-
-          return newCups;
-        });
-      }, 1000);
+      const interval = setInterval(swapCups, 1000);
 
       const timeout = setTimeout(() => {
         clearInterval(interval);
