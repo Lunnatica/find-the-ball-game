@@ -40,12 +40,6 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
   const [gameState, setGameState] = useState<GameState>("initial");
 
   const startGame = () => {
-    setCups((cups) =>
-      cups.map((cup) => ({
-        ...cup,
-        isLifted: false,
-      }))
-    );
     setGameState("shuffling");
   };
 
