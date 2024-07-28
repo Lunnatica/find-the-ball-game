@@ -49,7 +49,6 @@ export const StyledCup = styled.button<{
     props.$isLifted &&
     css`
       transform: translateY(-50px);
-      transition: transform 0.5s ease;
     `}
 
   ${(props) =>

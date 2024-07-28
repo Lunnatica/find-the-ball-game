@@ -41,7 +41,7 @@ interface ProviderProps {
 const INITIAL_NUMBER_OF_CUPS = 3;
 const NUMBER_OF_SHUFFLES = 4;
 const SHUFFLE_INTERVAL_DURATION = 1000;
-const INITIAL_DELAY = 500;
+const CUP_WIDTH = 100 + 48; // 100px width + 48px gap
 
 const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
   const [cups, setCups] = useState<CupInterface[]>([]);
@@ -72,10 +72,10 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
     const [index1, index2] = getIndicesToSwap(INITIAL_NUMBER_OF_CUPS);
     setAnimations({
       [index1]: css`
-        ${swapAnimation(index1 * 100, 0, index2 * 100, 0)}
+        ${swapAnimation(index1 * CUP_WIDTH, 0, index2 * CUP_WIDTH, 0)}
       `,
       [index2]: css`
-        ${swapAnimation(index2 * 100, 0, index1 * 100, 0)}
+        ${swapAnimation(index2 * CUP_WIDTH, 0, index1 * CUP_WIDTH, 0)}
       `,
     });
 
@@ -98,15 +98,19 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
     if (gameState === "shuffling") {
       const interval = setInterval(swapCups, SHUFFLE_INTERVAL_DURATION);
 
+      let finalShuffleTimeout: NodeJS.Timeout;
       const timeout = setTimeout(() => {
         clearInterval(interval);
-        setAnimations({});
-        setGameState("playing");
-      }, (NUMBER_OF_SHUFFLES + 1) * SHUFFLE_INTERVAL_DURATION);
+        finalShuffleTimeout = setTimeout(() => {
+          setAnimations({});
+          setGameState("playing");
+        }, SHUFFLE_INTERVAL_DURATION);
+      }, NUMBER_OF_SHUFFLES * SHUFFLE_INTERVAL_DURATION);
 
       return () => {
         clearInterval(interval);
         clearTimeout(timeout);
+        clearTimeout(finalShuffleTimeout);
       };
     }
   }, [gameState]);
