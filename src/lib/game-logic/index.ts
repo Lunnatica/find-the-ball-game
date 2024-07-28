@@ -25,7 +25,7 @@ const swapAnimation = (
   }
 `;
 
-export const swapCups = (
+export const exchangeTwoCups = (
   initialCups: CupInterface[],
   setAnimations: (animations: Record<string, RuleSet<object>>) => void
 ): CupInterface[] => {
