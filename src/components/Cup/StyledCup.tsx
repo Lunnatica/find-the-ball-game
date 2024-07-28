@@ -1,8 +1,5 @@
 import styled, { css } from "styled-components";
 
-import cupImage from "../../../public/cup.png";
-import scallopImage from "../../../public/scallop.png";
-import seashellImage from "../../../public/seashell.png";
 import shellImage from "../../../public/shell.png";
 import { SwapAnimation } from "../../types/types";
 
@@ -12,24 +9,15 @@ export const StyledCup = styled.button<{
   $isLifted: boolean;
 }>`
   cursor: pointer;
-
-  /* background: url(${seashellImage.src}) no-repeat center center;
+  background: url(${shellImage.src}) no-repeat center center;
   background-size: contain;
   min-height: 100px;
   min-width: 100px;
-  border: none; */
-
-  /* background: url(${shellImage.src}) no-repeat center center;
-  background-size: contain;
-  min-height: 100px;
-  min-width: 100px;
-  border: none; */
+  border: none;
 
   &:disabled {
     cursor: not-allowed;
   }
-
-  // When isLitfed is true, the cup is lifted
 
   ${(props) =>
     props.$isLifted &&
