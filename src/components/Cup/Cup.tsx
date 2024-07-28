@@ -8,7 +8,7 @@ import { StyledBall, StyledCup } from "./StyledCup";
 
 const LIFTED_Y = 100;
 
-export const Cup: React.FC<CupInterface> = ({ id }) => {
+export const Cup: React.FC<CupInterface> = ({ id, $animate, $animation }) => {
   const { gameState, cupWithBall, endGame } = useGameContext();
   const [springs, api] = useSpring(() => ({
     from: { x: 0, y: LIFTED_Y },
@@ -40,7 +40,11 @@ export const Cup: React.FC<CupInterface> = ({ id }) => {
         data-testid={`cup-${id}`}
         onClick={() => endGame(id)}
         disabled={gameState !== "playing"}
-      />
+        $animate={$animate}
+        $animation={$animation}
+      >
+        Cup {id}
+      </StyledCup>
       {hasBall && isLifted && <StyledBall data-testid="ball" />}
     </div>
   );

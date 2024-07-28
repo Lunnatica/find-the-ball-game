@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { animated } from "@react-spring/web";
 
@@ -9,7 +9,10 @@ import shellImage from "../../../public/shell.png";
 
 // TODO: Decide image and delete the ones not used
 
-export const StyledCup = styled(animated.button)`
+export const StyledCup = styled(animated.button)<{
+  $animate?: boolean;
+  $animation?: string;
+}>`
   cursor: pointer;
   /* background: url(${cupImage.src}) no-repeat center center;
   background-size: contain;
@@ -41,6 +44,14 @@ export const StyledCup = styled(animated.button)`
   &:disabled {
     cursor: not-allowed;
   }
+
+  /* animation: ${(props) => props.$animation}; */
+
+  ${(props) =>
+    props.$animate &&
+    css`
+      animation: ${props.$animation} 0.1s ease-in-out;
+    `}
 `;
 
 export const StyledBall = styled.div`
