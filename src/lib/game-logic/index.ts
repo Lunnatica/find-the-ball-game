@@ -30,7 +30,6 @@ export const exchangeTwoCups = (
   setAnimations: (animations: Record<string, RuleSet<object>>) => void
 ): CupInterface[] => {
   const cups = [...initialCups];
-  if (cups.length < 2) return cups;
 
   const randomIndex1 = Math.floor(Math.random() * cups.length);
   let randomIndex2 = Math.floor(Math.random() * cups.length);
