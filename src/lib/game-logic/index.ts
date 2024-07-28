@@ -26,8 +26,7 @@ export const swapAnimation = (
 `;
 
 export const getIndicesToSwap = (
-  initialCups: CupInterface[],
-  setAnimations: (animations: Record<string, RuleSet<object>>) => void
+  initialCups: CupInterface[]
 ): [number, number] => {
   const cups = [...initialCups];
 
