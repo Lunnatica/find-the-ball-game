@@ -14,7 +14,7 @@ import {
 } from "../lib/game-logic";
 import { Animations, CupInterface, GameState } from "../types/types";
 
-type GameContext = {
+export type GameContext = {
   gameState: GameState;
   cups: CupInterface[];
   cupWithBall: number | undefined;
