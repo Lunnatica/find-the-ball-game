@@ -70,9 +70,9 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
     }
 
     if (gameState === "shuffling") {
-      let shuffles = NUMBER_OF_SHUFFLES;
+      let shuffles = 0;
       const shuffleInterval = () => {
-        if (shuffles > 0) {
+        if (shuffles <= NUMBER_OF_SHUFFLES) {
           setCups((prevCups) => {
             const [index1, index2] = exchangeTwoCups(prevCups, setAnimations);
             const newCups = [...prevCups];
@@ -85,7 +85,7 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
 
             return newCups;
           });
-          shuffles -= 1;
+          shuffles++;
           setTimeout(shuffleInterval, SHUFFLE_INTERVAL);
         } else {
           setGameState("playing");
