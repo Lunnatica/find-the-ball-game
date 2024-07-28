@@ -12,6 +12,7 @@ import { chooseRandomCup, exchangeTwoCups } from "../lib/game-logic";
 type GameContext = {
   gameState: GameState;
   cups: CupInterface[];
+  cupWithBall: number | undefined;
   startGame: () => void;
   endGame: (chosenCup: number) => void;
 };
@@ -19,6 +20,7 @@ type GameContext = {
 export const initialContext: GameContext = {
   gameState: "initial",
   cups: [],
+  cupWithBall: undefined,
   startGame: () => {},
   endGame: () => {},
 };
@@ -58,24 +60,20 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
   useEffect(() => {
     if (gameState === "initial") {
       setCupWithBall(chooseRandomCup(INITIAL_NUMBER_OF_CUPS));
-    }
 
-    let generatedCups = [];
-    for (let i = 0; i < INITIAL_NUMBER_OF_CUPS; i++) {
-      generatedCups.push({
-        id: i,
-        hasBall: cupWithBall === i,
-        isLifted:
-          gameState === "initial" ||
-          gameState === "win" ||
-          gameState === "lose",
-      });
+      let generatedCups = [];
+      for (let i = 0; i < INITIAL_NUMBER_OF_CUPS; i++) {
+        generatedCups.push({
+          id: i,
+        });
+      }
+      setCups(generatedCups);
     }
-    setCups(generatedCups);
   }, [cupWithBall, gameState]);
 
   useEffect(() => {
     // TODO: use requestAnimationFrame instead of setInterval
+
     if (gameState === "shuffling") {
       const interval = setInterval(() => {
         setCups((cups) => exchangeTwoCups(cups));
@@ -94,7 +92,9 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
   }, [gameState, setCups, setGameState]);
 
   return (
-    <GameContext.Provider value={{ gameState, cups, startGame, endGame }}>
+    <GameContext.Provider
+      value={{ gameState, cups, cupWithBall, startGame, endGame }}
+    >
       {children}
     </GameContext.Provider>
   );

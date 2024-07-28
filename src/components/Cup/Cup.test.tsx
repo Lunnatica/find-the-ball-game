@@ -5,24 +5,43 @@ import { GameContext, initialContext } from "../../contexts/GameContext";
 import { Cup } from "./Cup";
 
 const MOCK_ID = 1;
+const mockEndGame = jest.fn();
+
+const renderCupWithContext = (
+  gameState: "initial" | "playing" = "initial",
+  isCupWithBall: boolean = false
+) => {
+  render(
+    <GameContext.Provider
+      value={{
+        ...initialContext,
+        gameState,
+        cupWithBall: isCupWithBall ? MOCK_ID : undefined,
+        endGame: mockEndGame,
+      }}
+    >
+      <Cup id={MOCK_ID} />
+    </GameContext.Provider>
+  );
+};
 
 describe("Cup", () => {
   it("should render the component", () => {
-    render(<Cup id={MOCK_ID} hasBall={false} isLifted={false} />);
+    renderCupWithContext();
     expect(screen.getByTestId(`cup-${MOCK_ID}`)).toBeInTheDocument();
   });
 
   describe("when the cup has the ball", () => {
     describe("when the cup is lifted", () => {
       it("should render the ball", () => {
-        render(<Cup id={MOCK_ID} hasBall isLifted />);
+        renderCupWithContext("initial", true);
         expect(screen.getByTestId("ball")).toBeInTheDocument();
       });
     });
 
     describe("when the cup is not lifted", () => {
       it("should not render the ball", () => {
-        render(<Cup id={MOCK_ID} hasBall isLifted={false} />);
+        renderCupWithContext("playing", true);
         expect(screen.queryByTestId("ball")).not.toBeInTheDocument();
       });
     });
@@ -31,14 +50,14 @@ describe("Cup", () => {
   describe("when the cup does not have the ball", () => {
     describe("when the cup is lifted", () => {
       it("should not render the ball", () => {
-        render(<Cup id={MOCK_ID} isLifted hasBall={false} />);
+        renderCupWithContext("initial", false);
         expect(screen.queryByTestId("ball")).not.toBeInTheDocument();
       });
     });
 
     describe("when the cup is not lifted", () => {
       it("should not render the ball", () => {
-        render(<Cup id={MOCK_ID} hasBall={false} isLifted={false} />);
+        renderCupWithContext("playing", false);
         expect(screen.queryByTestId("ball")).not.toBeInTheDocument();
       });
     });
@@ -46,29 +65,17 @@ describe("Cup", () => {
 
   describe("when the game is not in the playing state", () => {
     it("should disable the Cup button", () => {
-      render(<Cup id={MOCK_ID} hasBall={false} isLifted={false} />);
+      renderCupWithContext("initial", false);
       expect(screen.getByTestId(`cup-${MOCK_ID}`)).toBeDisabled();
     });
   });
 
   describe("when the game is in the playing state", () => {
-    let mockEndGame: jest.Mock;
     let user: UserEvent;
 
     beforeEach(() => {
-      mockEndGame = jest.fn();
       user = userEvent.setup();
-      render(
-        <GameContext.Provider
-          value={{
-            ...initialContext,
-            gameState: "playing",
-            endGame: mockEndGame,
-          }}
-        >
-          <Cup id={MOCK_ID} hasBall={false} isLifted={false} />
-        </GameContext.Provider>
-      );
+      renderCupWithContext("playing", false);
     });
 
     it("should enable the Cup button", () => {
