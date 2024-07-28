@@ -7,6 +7,7 @@ import { GameState } from "../../types/types";
 
 const MOCK_ID = 1;
 const mockEndGame = jest.fn();
+const liftedCupStyle = { transform: "translateY(-50px)" };
 
 const renderCupWithContext = (
   gameState: GameState = "initial",
@@ -21,7 +22,7 @@ const renderCupWithContext = (
         endGame: mockEndGame,
       }}
     >
-      <Cup id={MOCK_ID} />
+      <Cup id={MOCK_ID} $animation={[]} />
     </GameContext.Provider>
   );
 };
@@ -33,13 +34,10 @@ describe("Cup", () => {
   });
 
   describe("when the game is in the initial state", () => {
-    // TODO: check cup is lifted
-    // it("should render the cup lifted", () => {
-    //   renderCupWithContext("initial");
-    //   expect(screen.getByTestId(`cup-${MOCK_ID}`)).toHaveStyle({
-    //     transform: "translateY(-20px)",
-    //   });
-    // });
+    it("should render the cup lifted", () => {
+      renderCupWithContext("initial");
+      expect(screen.getByTestId(`cup-${MOCK_ID}`)).toHaveStyle(liftedCupStyle);
+    });
 
     it("should disable the Cup button", () => {
       renderCupWithContext("initial");
@@ -73,6 +71,13 @@ describe("Cup", () => {
         user = userEvent.setup();
       });
 
+      it("should render the cup not lifted", () => {
+        renderCupWithContext("playing");
+        expect(screen.getByTestId(`cup-${MOCK_ID}`)).not.toHaveStyle(
+          liftedCupStyle
+        );
+      });
+
       it("should enable the Cup button", () => {
         renderCupWithContext("playing");
         expect(screen.getByTestId(`cup-${MOCK_ID}`)).toBeEnabled();
@@ -101,7 +106,13 @@ describe("Cup", () => {
     });
 
     describe("when the game is in the win state", () => {
-      // TODO: check cup is lifted
+      it("should render the cup lifted", () => {
+        renderCupWithContext("win");
+        expect(screen.getByTestId(`cup-${MOCK_ID}`)).toHaveStyle(
+          liftedCupStyle
+        );
+      });
+
       it("should disable the Cup button", () => {
         renderCupWithContext("win");
         expect(screen.getByTestId(`cup-${MOCK_ID}`)).toBeDisabled();
@@ -123,7 +134,13 @@ describe("Cup", () => {
     });
 
     describe("when the game is in the lose state", () => {
-      // TODO: check cup is lifted
+      it("should render the cup lifted", () => {
+        renderCupWithContext("lose");
+        expect(screen.getByTestId(`cup-${MOCK_ID}`)).toHaveStyle(
+          liftedCupStyle
+        );
+      });
+
       it("should disable the Cup button", () => {
         renderCupWithContext("lose");
         expect(screen.getByTestId(`cup-${MOCK_ID}`)).toBeDisabled();
