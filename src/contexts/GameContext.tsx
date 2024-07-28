@@ -35,6 +35,8 @@ interface ProviderProps {
 
 const INITIAL_NUMBER_OF_CUPS = 3;
 const NUMBER_OF_SHUFFLES = 4;
+const SHUFFLE_INTERVAL = 1500;
+const INITIAL_DELAY = 500;
 
 const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
   const [cups, setCups] = useState<CupInterface[]>([]);
@@ -71,12 +73,12 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
         if (shuffles > 0) {
           setCups((prevCups) => swapCups(prevCups, setAnimations));
           shuffles -= 1;
-          setTimeout(shuffleInterval, 1000);
+          setTimeout(shuffleInterval, SHUFFLE_INTERVAL);
         } else {
           setGameState("playing");
         }
       };
-      shuffleInterval();
+      setTimeout(shuffleInterval, INITIAL_DELAY);
     }
   }, [gameState]);
 
