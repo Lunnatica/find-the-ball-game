@@ -33,8 +33,8 @@ export const StyledCup = styled.button<{
 `;
 
 export const StyledBall = styled.div`
-  width: 20px;
-  height: 20px;
+  width: 1.8rem;
+  height: 1.8rem;
   background: #e98a02;
   margin: 1rem auto 0 auto;
   border-radius: 50%;
