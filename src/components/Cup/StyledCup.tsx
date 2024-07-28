@@ -1,7 +1,5 @@
 import styled, { css } from "styled-components";
 
-import { animated } from "@react-spring/web";
-
 import cupImage from "../../../public/cup.png";
 import scallopImage from "../../../public/scallop.png";
 import seashellImage from "../../../public/seashell.png";
@@ -9,7 +7,7 @@ import shellImage from "../../../public/shell.png";
 
 // TODO: Decide image and delete the ones not used
 
-export const StyledCup = styled(animated.button)<{
+export const StyledCup = styled.button<{
   $animate?: boolean;
   $animation?: string;
   $isLifted?: boolean;
