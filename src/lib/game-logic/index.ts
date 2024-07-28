@@ -25,14 +25,14 @@ export const swapAnimation = (
   }
 `;
 
-export const getIndicesToSwap = (cups: CupInterface[]): [number, number] => {
-  const randomIndex1 = Math.floor(Math.random() * cups.length);
-  let randomIndex2 = Math.floor(Math.random() * cups.length);
+export const getIndicesToSwap = (cupsLength: number): [number, number] => {
+  const randomIndex1 = Math.floor(Math.random() * cupsLength);
+  let randomIndex2 = Math.floor(Math.random() * cupsLength);
 
   const maxAttempts = 10;
   let attempts = 0;
   while (randomIndex2 === randomIndex1 && attempts < maxAttempts) {
-    randomIndex2 = Math.floor(Math.random() * cups.length);
+    randomIndex2 = Math.floor(Math.random() * cupsLength);
   }
 
   return [randomIndex1, randomIndex2];

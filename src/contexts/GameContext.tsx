@@ -70,7 +70,7 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
 
   const swapCups = () => {
     setCups((prevCups) => {
-      const [index1, index2] = getIndicesToSwap(prevCups);
+      const [index1, index2] = getIndicesToSwap(prevCups.length);
       const newCups = [...prevCups];
 
       const temp = newCups[index1];
