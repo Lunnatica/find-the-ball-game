@@ -1,17 +1,30 @@
 import { useGameContext } from "../../contexts/GameContext";
 import { GameState } from "../../types/types";
 import { CupContainer } from "../CupContainer/CupContainer";
+import {
+  StyledGameArea,
+  StyledStartButton,
+  StyledUserMessage,
+} from "./StyledGameArea";
 
 const renderUserMessage = (gameState: GameState) => {
   switch (gameState) {
     case "win":
-      return <p aria-live="polite">You win!</p>;
+      return <StyledUserMessage aria-live="polite">You win!</StyledUserMessage>;
     case "lose":
-      return <p aria-live="polite">You lose!</p>;
+      return (
+        <StyledUserMessage aria-live="polite">You lose!</StyledUserMessage>
+      );
     case "shuffling":
-      return <p aria-live="polite">Shuffling...</p>;
+      return (
+        <StyledUserMessage aria-live="polite">Shuffling...</StyledUserMessage>
+      );
     default:
-      return <p aria-live="polite">Guess where the treasure is!</p>;
+      return (
+        <StyledUserMessage aria-live="polite">
+          Guess where the treasure is!
+        </StyledUserMessage>
+      );
   }
 };
 
@@ -19,14 +32,14 @@ export const GameArea: React.FC = () => {
   const { gameState, cups, startGame } = useGameContext();
 
   return (
-    <main data-testid="game-area">
+    <StyledGameArea data-testid="game-area">
       <CupContainer cups={cups} />
       {["initial", "win", "lose"].includes(gameState) && (
-        <button type="button" onClick={startGame}>
+        <StyledStartButton type="button" onClick={startGame}>
           Start game!
-        </button>
+        </StyledStartButton>
       )}
       {renderUserMessage(gameState)}
-    </main>
+    </StyledGameArea>
   );
 };
