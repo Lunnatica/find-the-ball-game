@@ -75,51 +75,40 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
     }
 
     if (gameState === "shuffling") {
-      let shuffles = 0;
-      const shuffleInterval = () => {
-        if (shuffles <= NUMBER_OF_SHUFFLES) {
-          setCups((prevCups) => {
-            const [index1, index2] = getIndicesToSwap(prevCups);
-            const newCups = [...prevCups];
-            setCupToBeSwapped1(index1);
-            setCupToBeSwapped2(index2);
+      const interval = setInterval(() => {
+        setCups((prevCups) => {
+          const [index1, index2] = getIndicesToSwap(prevCups);
+          const newCups = [...prevCups];
+          setCupToBeSwapped1(index1);
+          setCupToBeSwapped2(index2);
 
-            const temp = newCups[index1];
-            newCups[index1] = newCups[index2];
-            newCups[index2] = temp;
+          const temp = newCups[index1];
+          newCups[index1] = newCups[index2];
+          newCups[index2] = temp;
 
-            setAnimations({
-              [index1]: css`
-                ${swapAnimation(index1 * 70, 0, index2 * 70, 0)}
-              `,
-              [index2]: css`
-                ${swapAnimation(index2 * 70, 0, index1 * 70, 0)}
-              `,
-            });
-
-            const duration = 900; // ms
-            requestAnimationFrame((timestamp) => {
-              const startTime = timestamp;
-              const animate = (currentTime: number) => {
-                if (currentTime - startTime < duration) {
-                  requestAnimationFrame(animate);
-                } else {
-                  setAnimations({});
-                }
-              };
-              requestAnimationFrame(animate);
-            });
-
-            return newCups;
+          setAnimations({
+            [index1]: css`
+              ${swapAnimation(index1 * 70, 0, index2 * 70, 0)}
+            `,
+            [index2]: css`
+              ${swapAnimation(index2 * 70, 0, index1 * 70, 0)}
+            `,
           });
 
-          shuffles++;
-          setTimeout(shuffleInterval, SHUFFLE_INTERVAL);
-        } else {
-          setGameState("playing");
-        }
+          return newCups;
+        });
+      }, 1000);
+
+      const timeout = setTimeout(() => {
+        clearInterval(interval);
+        setAnimations({});
+        setGameState("playing");
+      }, NUMBER_OF_SHUFFLES * 1000);
+
+      return () => {
+        clearInterval(interval);
+        clearTimeout(timeout);
       };
-      setTimeout(shuffleInterval, INITIAL_DELAY);
     }
   }, [gameState]);
 
