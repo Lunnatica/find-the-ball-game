@@ -102,7 +102,7 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
         clearInterval(interval);
         setAnimations({});
         setGameState("playing");
-      }, NUMBER_OF_SHUFFLES * SHUFFLE_INTERVAL_DURATION);
+      }, (NUMBER_OF_SHUFFLES + 1) * SHUFFLE_INTERVAL_DURATION);
 
       return () => {
         clearInterval(interval);
