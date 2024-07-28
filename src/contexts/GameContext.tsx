@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { RuleSet } from "styled-components";
-import { chooseRandomCup, exchangeTwoCups } from "../lib/game-logic";
+import { chooseRandomCup, getIndicesToSwap } from "../lib/game-logic";
 import { CupInterface, GameState } from "../types/types";
 
 type GameContext = {
@@ -74,7 +74,7 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
       const shuffleInterval = () => {
         if (shuffles <= NUMBER_OF_SHUFFLES) {
           setCups((prevCups) => {
-            const [index1, index2] = exchangeTwoCups(prevCups, setAnimations);
+            const [index1, index2] = getIndicesToSwap(prevCups, setAnimations);
             const newCups = [...prevCups];
             setCupToBeSwapped1(index1);
             setCupToBeSwapped2(index2);
