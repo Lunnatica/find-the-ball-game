@@ -5,7 +5,7 @@ import { StyledHeader, StyledHeaderTitle } from "./StyledHeader";
 const Header: React.FC = () => (
   <StyledHeader>
     <StyledHeaderTitle>
-      <h1>find-the-ball-game</h1>
+      <h1>Find The Ball Game</h1>
       <p>Page developed by Paula López Antelo</p>
     </StyledHeaderTitle>
   </StyledHeader>

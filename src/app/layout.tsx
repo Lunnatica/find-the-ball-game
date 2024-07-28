@@ -9,8 +9,8 @@ import StyledComponentsRegistry from "../lib/registry";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "find-the-ball-game",
-  description: "find-the-ball-game",
+  title: "Find the ball game",
+  description: "Find the ball game, a simple game to test your luck!",
 };
 
 export default function RootLayout({

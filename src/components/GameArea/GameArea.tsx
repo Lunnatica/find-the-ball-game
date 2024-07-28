@@ -30,7 +30,7 @@ const renderUserMessage = (gameState: GameState) => {
     default:
       return (
         <StyledUserMessage aria-live="polite">
-          Guess where the treasure is!
+          Guess where the ball is!
         </StyledUserMessage>
       );
   }
