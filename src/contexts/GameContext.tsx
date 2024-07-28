@@ -12,7 +12,7 @@ import {
   getIndicesToSwap,
   swapAnimation,
 } from "../lib/game-logic";
-import { CupInterface, GameState } from "../types/types";
+import { Animations, CupInterface, GameState } from "../types/types";
 
 type GameContext = {
   gameState: GameState;
@@ -20,7 +20,7 @@ type GameContext = {
   cupWithBall: number | undefined;
   startGame: () => void;
   endGame: (chosenCup: number) => void;
-  animations: Record<string, RuleSet<object>>;
+  animations: Animations;
 };
 
 export const initialContext: GameContext = {
@@ -47,9 +47,7 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
   const [cups, setCups] = useState<CupInterface[]>([]);
   const [cupWithBall, setCupWithBall] = useState<number | undefined>();
   const [gameState, setGameState] = useState<GameState>("initial");
-  const [animations, setAnimations] = useState<Record<string, RuleSet<object>>>(
-    {}
-  );
+  const [animations, setAnimations] = useState<Animations>({});
 
   const setInitialGame = () => {
     setCupWithBall(chooseRandomCup(INITIAL_NUMBER_OF_CUPS));

@@ -1,10 +1,15 @@
 import React from "react";
 
 import { useGameContext } from "../../contexts/GameContext";
-import { CupInterface } from "../../types/types";
+import { SwapAnimation } from "../../types/types";
 import { StyledBall, StyledCup } from "./StyledCup";
 
-export const Cup: React.FC<CupInterface> = ({ id, $animate, $animation }) => {
+interface CupProps {
+  id: number;
+  $animation: SwapAnimation;
+}
+
+export const Cup: React.FC<CupProps> = ({ id, $animation }) => {
   const { gameState, cupWithBall, endGame } = useGameContext();
 
   const isLifted =
@@ -19,7 +24,7 @@ export const Cup: React.FC<CupInterface> = ({ id, $animate, $animation }) => {
         data-testid={`cup-${id}`}
         onClick={() => endGame(id)}
         disabled={gameState !== "playing"}
-        $animate={$animate}
+        $animate={!!$animation}
         $animation={$animation}
         $isLifted={isLifted}
       >

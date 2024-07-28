@@ -4,13 +4,14 @@ import cupImage from "../../../public/cup.png";
 import scallopImage from "../../../public/scallop.png";
 import seashellImage from "../../../public/seashell.png";
 import shellImage from "../../../public/shell.png";
+import { SwapAnimation } from "../../types/types";
 
 // TODO: Decide image and delete the ones not used
 
 export const StyledCup = styled.button<{
-  $animate?: boolean;
-  $animation?: string;
-  $isLifted?: boolean;
+  $animate: boolean;
+  $animation: SwapAnimation;
+  $isLifted: boolean;
 }>`
   cursor: pointer;
   /* background: url(${cupImage.src}) no-repeat center center;
