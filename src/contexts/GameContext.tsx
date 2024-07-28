@@ -50,8 +50,6 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
   const [animations, setAnimations] = useState<Record<string, RuleSet<object>>>(
     {}
   );
-  const [cupToBeSwapped1, setCupToBeSwapped1] = useState<number | undefined>();
-  const [cupToBeSwapped2, setCupToBeSwapped2] = useState<number | undefined>();
 
   const startGame = () => {
     setGameState("shuffling");
@@ -79,8 +77,6 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
         setCups((prevCups) => {
           const [index1, index2] = getIndicesToSwap(prevCups);
           const newCups = [...prevCups];
-          setCupToBeSwapped1(index1);
-          setCupToBeSwapped2(index2);
 
           const temp = newCups[index1];
           newCups[index1] = newCups[index2];
