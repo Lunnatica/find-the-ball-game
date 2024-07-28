@@ -28,7 +28,7 @@ const swapAnimation = (
 export const exchangeTwoCups = (
   initialCups: CupInterface[],
   setAnimations: (animations: Record<string, RuleSet<object>>) => void
-): CupInterface[] => {
+): [number, number] => {
   const cups = [...initialCups];
 
   const randomIndex1 = Math.floor(Math.random() * cups.length);
@@ -39,10 +39,6 @@ export const exchangeTwoCups = (
   while (randomIndex2 === randomIndex1 && attempts < maxAttempts) {
     randomIndex2 = Math.floor(Math.random() * cups.length);
   }
-
-  const temp = cups[randomIndex1];
-  cups[randomIndex1] = cups[randomIndex2];
-  cups[randomIndex2] = temp;
 
   setAnimations({
     [randomIndex1]: css`
@@ -66,5 +62,5 @@ export const exchangeTwoCups = (
     requestAnimationFrame(animate);
   });
 
-  return cups;
+  return [randomIndex1, randomIndex2];
 };
