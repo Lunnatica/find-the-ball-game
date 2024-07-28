@@ -51,6 +51,15 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
     {}
   );
 
+  const setInitialGame = () => {
+    setCupWithBall(chooseRandomCup(INITIAL_NUMBER_OF_CUPS));
+    setCups(
+      Array.from({ length: INITIAL_NUMBER_OF_CUPS }, (_, i) => ({
+        id: i,
+      }))
+    );
+  };
+
   const startGame = () => {
     setGameState("shuffling");
   };
@@ -83,15 +92,7 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
 
   useEffect(() => {
     if (gameState === "initial") {
-      setCupWithBall(chooseRandomCup(INITIAL_NUMBER_OF_CUPS));
-
-      let generatedCups = [];
-      for (let i = 0; i < INITIAL_NUMBER_OF_CUPS; i++) {
-        generatedCups.push({
-          id: i,
-        });
-      }
-      setCups(generatedCups);
+      setInitialGame();
     }
 
     if (gameState === "shuffling") {
