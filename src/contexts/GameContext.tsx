@@ -5,9 +5,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import { css, keyframes, RuleSet } from "styled-components";
-
-import { chooseRandomCup, exchangeTwoCups } from "../lib/game-logic";
+import { RuleSet } from "styled-components";
+import { chooseRandomCup, swapCups } from "../lib/game-logic";
 import { CupInterface, GameState } from "../types/types";
 
 type GameContext = {
@@ -35,7 +34,7 @@ interface ProviderProps {
 }
 
 const INITIAL_NUMBER_OF_CUPS = 3;
-export const NUMBER_OF_SHUFFLES = 4;
+const NUMBER_OF_SHUFFLES = 4;
 
 const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
   const [cups, setCups] = useState<CupInterface[]>([]);
@@ -50,11 +49,7 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
   };
 
   const endGame = (chosenCup: number) => {
-    if (chosenCup === cupWithBall) {
-      setGameState("win");
-    } else {
-      setGameState("lose");
-    }
+    setGameState(chosenCup === cupWithBall ? "win" : "lose");
   };
 
   useEffect(() => {
@@ -74,7 +69,7 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
       let shuffles = NUMBER_OF_SHUFFLES;
       const shuffleInterval = () => {
         if (shuffles > 0) {
-          setCups((prevCups) => exchangeTwoCups(prevCups, setAnimations));
+          setCups((prevCups) => swapCups(prevCups, setAnimations));
           shuffles -= 1;
           setTimeout(shuffleInterval, 1000);
         } else {
@@ -83,7 +78,7 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
       };
       shuffleInterval();
     }
-  }, [cupWithBall, gameState]);
+  }, [gameState]);
 
   return (
     <GameContext.Provider

@@ -25,14 +25,12 @@ const swapAnimation = (
   }
 `;
 
-export const exchangeTwoCups = (
+export const swapCups = (
   initialCups: CupInterface[],
   setAnimations: (animations: Record<string, RuleSet<object>>) => void
-) => {
+): CupInterface[] => {
   const cups = [...initialCups];
-  if (cups.length < 2) {
-    return cups;
-  }
+  if (cups.length < 2) return cups;
 
   const randomIndex1 = Math.floor(Math.random() * cups.length);
   let randomIndex2 = Math.floor(Math.random() * cups.length);
@@ -47,37 +45,27 @@ export const exchangeTwoCups = (
   cups[randomIndex1] = cups[randomIndex2];
   cups[randomIndex2] = temp;
 
-  const startX1 = randomIndex1 * 70;
-  const endX1 = randomIndex2 * 70;
-  const startX2 = randomIndex2 * 70;
-  const endX2 = randomIndex1 * 70;
-
-  const animation1 = css`
-    ${swapAnimation(startX1, 0, endX1, 0)}
-  `;
-  const animation2 = css`
-    ${swapAnimation(startX2, 0, endX2, 0)}
-  `;
-
   setAnimations({
-    [randomIndex1]: animation1,
-    [randomIndex2]: animation2,
+    [randomIndex1]: css`
+      ${swapAnimation(randomIndex1 * 70, 0, randomIndex2 * 70, 0)}
+    `,
+    [randomIndex2]: css`
+      ${swapAnimation(randomIndex2 * 70, 0, randomIndex1 * 70, 0)}
+    `,
   });
 
-  let startTime: number | null = null;
-  const duration = 900; // duration of animation in ms
-
-  const animate = (timestamp: number) => {
-    if (!startTime) startTime = timestamp;
-    const progress = timestamp - startTime;
-    if (progress < duration) {
-      requestAnimationFrame(animate);
-    } else {
-      setAnimations({});
-    }
-  };
-
-  requestAnimationFrame(animate);
+  const duration = 900; // ms
+  requestAnimationFrame((timestamp) => {
+    const startTime = timestamp;
+    const animate = (currentTime: number) => {
+      if (currentTime - startTime < duration) {
+        requestAnimationFrame(animate);
+      } else {
+        setAnimations({});
+      }
+    };
+    requestAnimationFrame(animate);
+  });
 
   return cups;
 };
