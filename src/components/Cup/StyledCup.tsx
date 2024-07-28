@@ -6,33 +6,18 @@ import seashellImage from "../../../public/seashell.png";
 import shellImage from "../../../public/shell.png";
 import { SwapAnimation } from "../../types/types";
 
-// TODO: Decide image and delete the ones not used
-
 export const StyledCup = styled.button<{
   $animate: boolean;
   $animation: SwapAnimation;
   $isLifted: boolean;
 }>`
   cursor: pointer;
-  /* background: url(${cupImage.src}) no-repeat center center;
-  background-size: contain;
-  width: 150px;
-  height: 150px;
-  border: none;
-  transform: rotateX(180deg); */
 
-  /* background: url(${scallopImage.src}) no-repeat center center;
+  /* background: url(${seashellImage.src}) no-repeat center center;
   background-size: contain;
   min-height: 100px;
   min-width: 100px;
-  border: none;
-  transform: rotateX(180deg); */
-
-  background: url(${seashellImage.src}) no-repeat center center;
-  background-size: contain;
-  min-height: 100px;
-  min-width: 100px;
-  border: none;
+  border: none; */
 
   /* background: url(${shellImage.src}) no-repeat center center;
   background-size: contain;
