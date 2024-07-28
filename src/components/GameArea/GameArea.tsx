@@ -45,7 +45,7 @@ export const GameArea: React.FC = () => {
       {renderUserMessage(gameState)}
       {["initial", "win", "lose"].includes(gameState) && (
         <StyledStartButton type="button" onClick={startGame}>
-          Start game!
+          Start game
         </StyledStartButton>
       )}
     </StyledGameArea>

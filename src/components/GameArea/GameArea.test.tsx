@@ -39,7 +39,7 @@ describe("GameArea", () => {
 
     it("should render a Start game button", () => {
       renderGameAreaWithContext();
-      const startButton = screen.getByText("Start game!");
+      const startButton = screen.getByText("Start game");
       expect(startButton).toBeInTheDocument();
     });
 
@@ -51,7 +51,7 @@ describe("GameArea", () => {
     it("should hide the button after clicking the Start game button", async () => {
       const user = userEvent.setup();
       renderGameAreaWithContext();
-      const startButton = screen.getByText("Start game!");
+      const startButton = screen.getByText("Start game");
 
       await user.click(startButton);
 
@@ -63,7 +63,7 @@ describe("GameArea", () => {
     beforeEach(async () => {
       const user = userEvent.setup();
       renderGameAreaWithContext();
-      const startButton = screen.getByText("Start game!");
+      const startButton = screen.getByText("Start game");
       await user.click(startButton);
     });
 
@@ -90,7 +90,7 @@ describe("GameArea", () => {
   //     const user = userEvent.setup();
   //     renderGameAreaWithContext()
 
-  //     const startButton = screen.getByText("Start game!");
+  //     const startButton = screen.getByText("Start game");
   //     await user.click(startButton);
 
   //     await act(async () => {
