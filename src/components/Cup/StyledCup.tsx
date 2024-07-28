@@ -50,7 +50,7 @@ export const StyledCup = styled(animated.button)<{
   ${(props) =>
     props.$animate &&
     css`
-      animation: ${props.$animation} 0.1s ease-in-out;
+      animation: ${props.$animation} 0.5s linear;
     `}
 `;
 

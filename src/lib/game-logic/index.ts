@@ -18,7 +18,7 @@ export const swapAnimation = (
   50% {
     transform: translate(${(endX - startX) / 2}px, ${
   (endY - startY) / 2
-}px) scale(1.2);
+}px) scale(1);
   }
   100% {
     transform: translate(${endX - startX}px, ${endY - startY}px);
