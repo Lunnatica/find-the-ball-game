@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
-
-import { useSpring } from "@react-spring/web";
+import React from "react";
 
 import { useGameContext } from "../../contexts/GameContext";
 import { CupInterface } from "../../types/types";
