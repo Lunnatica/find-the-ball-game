@@ -1,4 +1,5 @@
-import { chooseRandomCup, exchangeTwoCups } from "./";
+import { INITIAL_NUMBER_OF_CUPS } from "../../contexts/GameContext";
+import { chooseRandomCup, getIndicesToSwap } from "./";
 
 describe("game-logic", () => {
   describe("chooseRandomCup", () => {
@@ -9,21 +10,11 @@ describe("game-logic", () => {
     });
   });
 
-  describe("exchangeTwoCups", () => {
-    it("should return the same array if it has less than 2 elements", () => {
-      const cups = [{ id: 1, hasBall: false, isLifted: false }];
-      const result = exchangeTwoCups(cups);
-      expect(result).toEqual(cups);
-    });
-
-    it("should exchange two cups at random", () => {
-      const cups = [
-        { id: 1, hasBall: false, isLifted: false },
-        { id: 2, hasBall: true, isLifted: false },
-      ];
-      const result = exchangeTwoCups(cups);
-      expect(result).not.toEqual(cups);
-      expect(result[0]).toEqual(cups[1]);
+  describe("getIndicesToSwap", () => {
+    it("should return two different indices", () => {
+      const result = getIndicesToSwap(INITIAL_NUMBER_OF_CUPS);
+      expect(result.length).toBe(2);
+      expect(result[0]).not.toBe(result[1]);
     });
   });
 });

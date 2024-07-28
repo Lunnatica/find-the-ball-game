@@ -38,7 +38,7 @@ interface ProviderProps {
   children: ReactNode;
 }
 
-const INITIAL_NUMBER_OF_CUPS = 3;
+export const INITIAL_NUMBER_OF_CUPS = 3;
 const NUMBER_OF_SHUFFLES = 4;
 const SHUFFLE_INTERVAL_DURATION = 1000;
 const CUP_WIDTH = 100 + 48; // 100px width + 48px gap
