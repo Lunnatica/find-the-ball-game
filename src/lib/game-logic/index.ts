@@ -1,6 +1,4 @@
-import { css, keyframes, RuleSet } from "styled-components";
-
-import { CupInterface } from "../../types/types";
+import { keyframes } from "styled-components";
 
 export const chooseRandomCup = (numberOfCups: number) => {
   return Math.floor(Math.random() * numberOfCups);
