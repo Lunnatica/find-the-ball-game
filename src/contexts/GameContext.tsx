@@ -69,11 +69,8 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
       }
       setCups(generatedCups);
     }
-  }, [cupWithBall, gameState]);
 
-  useEffect(() => {
     // TODO: use requestAnimationFrame instead of setInterval
-
     if (gameState === "shuffling") {
       const interval = setInterval(() => {
         setCups((cups) => exchangeTwoCups(cups));
@@ -89,7 +86,7 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
         clearTimeout(timeout);
       };
     }
-  }, [gameState, setCups, setGameState]);
+  }, [cupWithBall, gameState]);
 
   return (
     <GameContext.Provider
