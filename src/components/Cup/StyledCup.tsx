@@ -43,8 +43,6 @@ export const StyledCup = styled.button<{
     cursor: not-allowed;
   }
 
-  /* animation: ${(props) => props.$animation}; */
-
   // When isLitfed is true, the cup is lifted
 
   ${(props) =>
@@ -64,7 +62,7 @@ export const StyledCup = styled.button<{
 export const StyledBall = styled.div`
   width: 20px;
   height: 20px;
-  background: #f0ad4e;
+  background: #e98a02;
   margin: 1rem auto 0 auto;
   border-radius: 50%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
