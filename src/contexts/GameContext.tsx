@@ -5,8 +5,13 @@ import {
   useEffect,
   useState,
 } from "react";
-import { RuleSet } from "styled-components";
-import { chooseRandomCup, getIndicesToSwap } from "../lib/game-logic";
+import { css, RuleSet } from "styled-components";
+
+import {
+  chooseRandomCup,
+  getIndicesToSwap,
+  swapAnimation,
+} from "../lib/game-logic";
 import { CupInterface, GameState } from "../types/types";
 
 type GameContext = {
@@ -83,8 +88,31 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
             newCups[index1] = newCups[index2];
             newCups[index2] = temp;
 
+            setAnimations({
+              [index1]: css`
+                ${swapAnimation(index1 * 70, 0, index2 * 70, 0)}
+              `,
+              [index2]: css`
+                ${swapAnimation(index2 * 70, 0, index1 * 70, 0)}
+              `,
+            });
+
+            const duration = 900; // ms
+            requestAnimationFrame((timestamp) => {
+              const startTime = timestamp;
+              const animate = (currentTime: number) => {
+                if (currentTime - startTime < duration) {
+                  requestAnimationFrame(animate);
+                } else {
+                  setAnimations({});
+                }
+              };
+              requestAnimationFrame(animate);
+            });
+
             return newCups;
           });
+
           shuffles++;
           setTimeout(shuffleInterval, SHUFFLE_INTERVAL);
         } else {

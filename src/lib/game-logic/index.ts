@@ -6,7 +6,7 @@ export const chooseRandomCup = (numberOfCups: number) => {
   return Math.floor(Math.random() * numberOfCups);
 };
 
-const swapAnimation = (
+export const swapAnimation = (
   startX: number,
   startY: number,
   endX: number,
@@ -39,28 +39,6 @@ export const getIndicesToSwap = (
   while (randomIndex2 === randomIndex1 && attempts < maxAttempts) {
     randomIndex2 = Math.floor(Math.random() * cups.length);
   }
-
-  setAnimations({
-    [randomIndex1]: css`
-      ${swapAnimation(randomIndex1 * 70, 0, randomIndex2 * 70, 0)}
-    `,
-    [randomIndex2]: css`
-      ${swapAnimation(randomIndex2 * 70, 0, randomIndex1 * 70, 0)}
-    `,
-  });
-
-  const duration = 900; // ms
-  requestAnimationFrame((timestamp) => {
-    const startTime = timestamp;
-    const animate = (currentTime: number) => {
-      if (currentTime - startTime < duration) {
-        requestAnimationFrame(animate);
-      } else {
-        setAnimations({});
-      }
-    };
-    requestAnimationFrame(animate);
-  });
 
   return [randomIndex1, randomIndex2];
 };
