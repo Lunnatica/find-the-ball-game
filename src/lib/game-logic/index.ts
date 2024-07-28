@@ -25,11 +25,7 @@ export const swapAnimation = (
   }
 `;
 
-export const getIndicesToSwap = (
-  initialCups: CupInterface[]
-): [number, number] => {
-  const cups = [...initialCups];
-
+export const getIndicesToSwap = (cups: CupInterface[]): [number, number] => {
   const randomIndex1 = Math.floor(Math.random() * cups.length);
   let randomIndex2 = Math.floor(Math.random() * cups.length);
 
