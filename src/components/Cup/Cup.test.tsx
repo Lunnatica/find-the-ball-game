@@ -30,23 +30,29 @@ const renderCupWithContext = (
 describe("Cup", () => {
   it("should render the Cup component", () => {
     renderCupWithContext();
-    expect(screen.getByTestId(`cup-${MOCK_ID}`)).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: `Cup ${MOCK_ID}` })
+    ).toBeInTheDocument();
   });
 
   describe("when the game is in the initial state", () => {
     it("should render the cup lifted", () => {
       renderCupWithContext("initial");
-      expect(screen.getByTestId(`cup-${MOCK_ID}`)).toHaveStyle(liftedCupStyle);
+      expect(
+        screen.getByRole("button", { name: `Cup ${MOCK_ID}` })
+      ).toHaveStyle(liftedCupStyle);
     });
 
     it("should disable the Cup button", () => {
       renderCupWithContext("initial");
-      expect(screen.getByTestId(`cup-${MOCK_ID}`)).toBeDisabled();
+      expect(
+        screen.getByRole("button", { name: `Cup ${MOCK_ID}` })
+      ).toBeDisabled();
     });
 
     it("should not call the endGame function when the Cup button is clicked", () => {
       renderCupWithContext("initial");
-      userEvent.click(screen.getByTestId(`cup-${MOCK_ID}`));
+      userEvent.click(screen.getByRole("button", { name: `Cup ${MOCK_ID}` }));
       expect(mockEndGame).not.toHaveBeenCalled();
     });
 
@@ -73,19 +79,23 @@ describe("Cup", () => {
 
       it("should render the cup not lifted", () => {
         renderCupWithContext("playing");
-        expect(screen.getByTestId(`cup-${MOCK_ID}`)).not.toHaveStyle(
-          liftedCupStyle
-        );
+        expect(
+          screen.getByRole("button", { name: `Cup ${MOCK_ID}` })
+        ).not.toHaveStyle(liftedCupStyle);
       });
 
       it("should enable the Cup button", () => {
         renderCupWithContext("playing");
-        expect(screen.getByTestId(`cup-${MOCK_ID}`)).toBeEnabled();
+        expect(
+          screen.getByRole("button", { name: `Cup ${MOCK_ID}` })
+        ).toBeEnabled();
       });
 
       it("should call the endGame function when the Cup button is clicked", async () => {
         renderCupWithContext("playing");
-        await user.click(screen.getByTestId(`cup-${MOCK_ID}`));
+        await user.click(
+          screen.getByRole("button", { name: `Cup ${MOCK_ID}` })
+        );
 
         expect(mockEndGame).toHaveBeenCalledWith(MOCK_ID);
       });
@@ -108,14 +118,16 @@ describe("Cup", () => {
     describe("when the game is in the win state", () => {
       it("should render the cup lifted", () => {
         renderCupWithContext("win");
-        expect(screen.getByTestId(`cup-${MOCK_ID}`)).toHaveStyle(
-          liftedCupStyle
-        );
+        expect(
+          screen.getByRole("button", { name: `Cup ${MOCK_ID}` })
+        ).toHaveStyle(liftedCupStyle);
       });
 
       it("should disable the Cup button", () => {
         renderCupWithContext("win");
-        expect(screen.getByTestId(`cup-${MOCK_ID}`)).toBeDisabled();
+        expect(
+          screen.getByRole("button", { name: `Cup ${MOCK_ID}` })
+        ).toBeDisabled();
       });
 
       describe("when the cup has the ball", () => {
@@ -136,14 +148,16 @@ describe("Cup", () => {
     describe("when the game is in the lose state", () => {
       it("should render the cup lifted", () => {
         renderCupWithContext("lose");
-        expect(screen.getByTestId(`cup-${MOCK_ID}`)).toHaveStyle(
-          liftedCupStyle
-        );
+        expect(
+          screen.getByRole("button", { name: `Cup ${MOCK_ID}` })
+        ).toHaveStyle(liftedCupStyle);
       });
 
       it("should disable the Cup button", () => {
         renderCupWithContext("lose");
-        expect(screen.getByTestId(`cup-${MOCK_ID}`)).toBeDisabled();
+        expect(
+          screen.getByRole("button", { name: `Cup ${MOCK_ID}` })
+        ).toBeDisabled();
       });
 
       describe("when the cup has the ball", () => {
