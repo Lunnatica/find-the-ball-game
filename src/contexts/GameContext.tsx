@@ -40,7 +40,7 @@ interface ProviderProps {
 
 /** Game Settings */
 export const INITIAL_NUMBER_OF_CUPS = 3; // Update this number to add more cups
-const NUMBER_OF_SHUFFLES = 6; // Update this number to increase the number of shuffles
+export const NUMBER_OF_SHUFFLES = 6; // Update this number to increase the number of shuffles
 export const SHUFFLE_INTERVAL_DURATION = 500; // Update this number to change the shuffle speed
 /** End of game settings */
 
