@@ -60,7 +60,7 @@ describe("GameArea", () => {
     });
 
     it("should render the game area", () => {
-      const gameArea = screen.getByTestId("game-area");
+      const gameArea = screen.getByRole("main", { name: "Game area" });
       expect(gameArea).toBeInTheDocument();
     });
 
@@ -70,7 +70,7 @@ describe("GameArea", () => {
     });
 
     it("should render the initial number of cups", () => {
-      const cups = screen.getAllByTestId("cup");
+      const cups = screen.getAllByRole("button", { name: /Cup \d/ });
       expect(cups).toHaveLength(INITIAL_NUMBER_OF_CUPS);
     });
 
@@ -89,7 +89,9 @@ describe("GameArea", () => {
         `cup-container-for-${mockCupWithBallIndex}`
       );
 
-      expect(cupWithBall).toContainElement(screen.getByTestId("ball"));
+      expect(cupWithBall).toContainElement(
+        screen.getByRole("img", { name: "Ball" })
+      );
     });
 
     it("should call the startGame function when clicking the Start game button", async () => {
@@ -151,7 +153,9 @@ describe("GameArea", () => {
         `cup-container-for-${mockCupWithBallIndex}`
       );
 
-      expect(cupWithBall).toContainElement(screen.getByTestId("ball"));
+      expect(cupWithBall).toContainElement(
+        screen.getByRole("img", { name: "Ball" })
+      );
     });
 
     it("should show the Start game button", () => {
@@ -173,7 +177,9 @@ describe("GameArea", () => {
         `cup-container-for-${mockCupWithBallIndex}`
       );
 
-      expect(cupWithBall).toContainElement(screen.getByTestId("ball"));
+      expect(cupWithBall).toContainElement(
+        screen.getByRole("img", { name: "Ball" })
+      );
     });
 
     it("should show the Start game button", () => {

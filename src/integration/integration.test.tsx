@@ -11,7 +11,7 @@ import {
 const TIME_TO_RUN_SHUFFLES =
   SHUFFLE_INTERVAL_DURATION * NUMBER_OF_SHUFFLES + 1000;
 
-describe("End to End Test", () => {
+describe("Integration Test", () => {
   it(
     "should start the game, shuffle the cups, and end the game",
     async () => {

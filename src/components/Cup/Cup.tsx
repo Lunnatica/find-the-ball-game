@@ -21,7 +21,6 @@ export const Cup: React.FC<CupProps> = ({ id, $animation }) => {
     <div data-testid={`cup-container-for-${id}`}>
       <StyledCup
         type="button"
-        data-testid={`cup-${id}`}
         aria-label={`Cup ${id}`}
         onClick={() => endGame(id)}
         disabled={gameState !== "playing"}
@@ -29,9 +28,7 @@ export const Cup: React.FC<CupProps> = ({ id, $animation }) => {
         $animation={$animation}
         $isLifted={isLifted}
       />
-      {hasBall && isLifted && (
-        <StyledBall data-testid="ball" role="img" aria-label="Ball" />
-      )}
+      {hasBall && isLifted && <StyledBall role="img" aria-label="Ball" />}
     </div>
   );
 };

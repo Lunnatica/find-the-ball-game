@@ -13,9 +13,7 @@ export const CupContainer: React.FC = () => {
     <StyledCupContainer data-testid="cup-container">
       {cups.length ? (
         cups.map(({ id }, index) => (
-          <div key={id} data-testid="cup">
-            <Cup id={id} $animation={animations[index]} />
-          </div>
+          <Cup id={id} key={id} $animation={animations[index]} />
         ))
       ) : (
         <CupLoader />

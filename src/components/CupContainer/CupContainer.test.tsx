@@ -17,7 +17,7 @@ describe("CupContainer", () => {
         <CupContainer />
       </GameContext.Provider>
     );
-    const cups = screen.getAllByTestId("cup");
+    const cups = screen.getAllByRole("button", { name: /Cup \d/ });
     expect(cups).toHaveLength(mockCups.length);
   });
 });

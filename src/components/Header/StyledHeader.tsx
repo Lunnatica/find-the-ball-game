@@ -10,15 +10,15 @@ const StyledHeader = styled.header`
 `;
 
 const StyledHeaderTitle = styled.div`
-  margin-left: 15px;
+  margin-left: 1rem;
 
   h1 {
-    font-size: 24px;
+    font-size: 1.5rem;
     color: #fff;
   }
 
   p {
-    font-size: 12px;
+    font-size: 0.75rem;
     color: #fff;
   }
 `;

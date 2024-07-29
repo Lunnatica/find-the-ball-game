@@ -71,12 +71,6 @@ describe("Cup", () => {
     });
 
     describe("when the game is in the playing state", () => {
-      let user: UserEvent;
-
-      beforeEach(() => {
-        user = userEvent.setup();
-      });
-
       it("should render the cup not lifted", () => {
         renderCupWithContext("playing");
         expect(
@@ -92,6 +86,7 @@ describe("Cup", () => {
       });
 
       it("should call the endGame function when the Cup button is clicked", async () => {
+        const user = userEvent.setup();
         renderCupWithContext("playing");
         await user.click(
           screen.getByRole("button", { name: `Cup ${MOCK_ID}` })
