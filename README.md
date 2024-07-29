@@ -6,6 +6,8 @@ The Find the Ball Game involves a flat surface, a row of three small containers,
 
 On each turn of the game, the player is shown the ball being placed under one of the containers before the order of the containers is repeatedly shuffled at random. The player has to guess correctly which container the ball is under to win; otherwise, they lose.
 
+<img width="1715" alt="Screenshot 2024-07-29 at 16 45 15" src="https://github.com/user-attachments/assets/9da8bc96-1194-410a-8baf-3f60d37a6ae8">
+
 ## Local development
 
 ### How to run the project locally
