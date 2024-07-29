@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 import shellImage from "../../../public/shell.png";
 import { SwapAnimation } from "../../types/types";
+import { SHUFFLE_INTERVAL_DURATION } from "../../contexts/GameContext";
 
 export const StyledCup = styled.button<{
   $animate: boolean;
@@ -28,7 +29,7 @@ export const StyledCup = styled.button<{
   ${(props) =>
     props.$animate &&
     css`
-      animation: ${props.$animation} 0.5s linear;
+      animation: ${props.$animation} ${SHUFFLE_INTERVAL_DURATION / 2}ms linear;
     `}
 `;
 

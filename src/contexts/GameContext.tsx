@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { css, RuleSet } from "styled-components";
+import { css } from "styled-components";
 
 import {
   chooseRandomCup,
@@ -38,9 +38,12 @@ interface ProviderProps {
   children: ReactNode;
 }
 
-export const INITIAL_NUMBER_OF_CUPS = 3;
-const NUMBER_OF_SHUFFLES = 4;
-const SHUFFLE_INTERVAL_DURATION = 1000;
+/** Game Settings */
+export const INITIAL_NUMBER_OF_CUPS = 3; // Update this number to add more cups
+const NUMBER_OF_SHUFFLES = 6; // Update this number to increase the number of shuffles
+export const SHUFFLE_INTERVAL_DURATION = 500; // Update this number to change the shuffle speed
+/** End of game settings */
+
 const CUP_WIDTH = 100 + 48; // 100px width + 48px gap
 
 const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
