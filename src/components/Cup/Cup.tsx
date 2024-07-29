@@ -22,6 +22,7 @@ export const Cup: React.FC<CupProps> = ({ id, $animation }) => {
       <StyledCup
         type="button"
         data-testid={`cup-${id}`}
+        aria-label={`Cup ${id}`}
         onClick={() => endGame(id)}
         disabled={gameState !== "playing"}
         $animate={!!$animation}
