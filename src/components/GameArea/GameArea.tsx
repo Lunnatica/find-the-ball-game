@@ -40,7 +40,7 @@ export const GameArea: React.FC = () => {
   const { gameState, startGame } = useGameContext();
 
   return (
-    <StyledGameArea data-testid="game-area">
+    <StyledGameArea data-testid="game-area" aria-label="Game area">
       <CupContainer />
       {renderUserMessage(gameState)}
       {["initial", "win", "lose"].includes(gameState) && (

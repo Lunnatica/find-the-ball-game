@@ -12,6 +12,6 @@ describe("Main page", () => {
 
   it("should render a GameArea component", () => {
     render(<Home />);
-    expect(screen.getByTestId("game-area")).toBeDefined();
+    expect(screen.getByRole("main", { name: "Game area" })).toBeDefined();
   });
 });
