@@ -29,7 +29,9 @@ export const Cup: React.FC<CupProps> = ({ id, $animation }) => {
         $animation={$animation}
         $isLifted={isLifted}
       />
-      {hasBall && isLifted && <StyledBall data-testid="ball" />}
+      {hasBall && isLifted && (
+        <StyledBall data-testid="ball" role="img" aria-label="Ball" />
+      )}
     </div>
   );
 };

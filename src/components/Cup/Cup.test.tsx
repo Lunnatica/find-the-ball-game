@@ -59,7 +59,7 @@ describe("Cup", () => {
     describe("when the cup has the ball", () => {
       it("should render the ball", () => {
         renderCupWithContext("initial", true);
-        expect(screen.getByTestId("ball")).toBeInTheDocument();
+        expect(screen.getByRole("img", { name: "Ball" })).toBeInTheDocument();
       });
     });
 
@@ -133,7 +133,7 @@ describe("Cup", () => {
       describe("when the cup has the ball", () => {
         it("should render the ball", () => {
           renderCupWithContext("win", true);
-          expect(screen.getByTestId("ball")).toBeInTheDocument();
+          expect(screen.getByRole("img", { name: "Ball" })).toBeInTheDocument();
         });
       });
 
@@ -163,7 +163,7 @@ describe("Cup", () => {
       describe("when the cup has the ball", () => {
         it("should render the ball", () => {
           renderCupWithContext("lose", true);
-          expect(screen.getByTestId("ball")).toBeInTheDocument();
+          expect(screen.getByRole("img", { name: "Ball" })).toBeInTheDocument();
         });
       });
 
