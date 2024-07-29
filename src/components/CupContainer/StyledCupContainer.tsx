@@ -9,3 +9,10 @@ export const StyledCupContainer = styled.div`
     gap: 3rem;
   }
 `;
+
+export const StyledCupLoader = styled.div`
+  font-size: 2rem;
+  font-weight: bold;
+  height: 12.5rem;
+  text-align: center;
+`;
