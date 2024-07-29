@@ -18,7 +18,7 @@ export const Cup: React.FC<CupProps> = ({ id, $animation }) => {
   const hasBall = id === cupWithBall;
 
   return (
-    <div>
+    <div data-testid={`cup-container-for-${id}`}>
       <StyledCup
         type="button"
         data-testid={`cup-${id}`}

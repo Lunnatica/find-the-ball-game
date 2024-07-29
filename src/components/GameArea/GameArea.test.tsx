@@ -1,69 +1,109 @@
-import { render, screen, act } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { GameArea } from "./GameArea";
-import { GameContextProvider } from "../../contexts/GameContext";
+import { render, screen } from "@testing-library/react";
+import userEvent, { UserEvent } from "@testing-library/user-event";
 
-jest.mock("../../lib/game-logic", () => ({
-  ...jest.requireActual("../../lib/game-logic"),
-  exchangeTwoCups: jest.fn(),
+import {
+  GameContext,
+  INITIAL_NUMBER_OF_CUPS,
+  initialContext,
+  useGameContext,
+} from "../../contexts/GameContext";
+import { Animations, GameState } from "../../types/types";
+import { GameArea } from "./GameArea";
+
+const mockCups = [{ id: 0 }, { id: 1 }, { id: 2 }];
+const mockAnimations: Animations = [];
+
+jest.mock("../../contexts/GameContext", () => ({
+  ...jest.requireActual("../../contexts/GameContext"),
+  useGameContext: jest.fn(),
 }));
 
-const renderGameAreaWithContext = () => {
+const mockStartGame = jest.fn();
+const mockCupWithBallIndex = 1;
+const mockContext = {
+  ...initialContext,
+  cupWithBall: mockCupWithBallIndex,
+  cups: mockCups,
+  animations: mockAnimations,
+  startGame: mockStartGame,
+};
+
+const renderGameAreaWithContext = (gameState: GameState = "initial") => {
+  (useGameContext as jest.Mock).mockReturnValue({
+    ...mockContext,
+    gameState,
+  });
+
   render(
-    <GameContextProvider>
+    <GameContext.Provider
+      value={{
+        ...mockContext,
+        gameState,
+      }}
+    >
       <GameArea />
-    </GameContextProvider>
+    </GameContext.Provider>
   );
 };
 
 describe("GameArea", () => {
-  it("should render the cup container", () => {
-    renderGameAreaWithContext();
-    const cupContainer = screen.getByTestId("cup-container");
-    expect(cupContainer).toBeInTheDocument();
-  });
-
-  it("should render the initial number of cups", () => {
-    renderGameAreaWithContext();
-    const cups = screen.getAllByTestId("cup");
-    expect(cups).toHaveLength(3);
+  beforeEach(() => {
+    jest.resetAllMocks();
   });
 
   describe("when the game is in the initial state", () => {
-    it("should render the initial user message", () => {
+    let user: UserEvent;
+
+    beforeEach(() => {
+      user = userEvent.setup();
       renderGameAreaWithContext();
+    });
+
+    it("should render the game area", () => {
+      const gameArea = screen.getByTestId("game-area");
+      expect(gameArea).toBeInTheDocument();
+    });
+
+    it("should render the cup container", () => {
+      const cupContainer = screen.getByTestId("cup-container");
+      expect(cupContainer).toBeInTheDocument();
+    });
+
+    it("should render the initial number of cups", () => {
+      const cups = screen.getAllByTestId("cup");
+      expect(cups).toHaveLength(INITIAL_NUMBER_OF_CUPS);
+    });
+
+    it("should render the initial user message", () => {
       const userMessage = screen.getByText("Guess where the ball is!");
       expect(userMessage).toBeInTheDocument();
     });
 
     it("should render a Start game button", () => {
-      renderGameAreaWithContext();
       const startButton = screen.getByText("Start game");
       expect(startButton).toBeInTheDocument();
     });
 
-    it("should show the ball under one of the cups", () => {
-      renderGameAreaWithContext();
-      expect(screen.getByTestId("ball")).toBeInTheDocument();
+    it("should show the ball under the cup with the ball", () => {
+      const cupWithBall = screen.getByTestId(
+        `cup-container-for-${mockCupWithBallIndex}`
+      );
+
+      expect(cupWithBall).toContainElement(screen.getByTestId("ball"));
     });
 
-    it("should hide the button after clicking the Start game button", async () => {
-      const user = userEvent.setup();
-      renderGameAreaWithContext();
+    it("should call the startGame function when clicking the Start game button", async () => {
       const startButton = screen.getByText("Start game");
 
       await user.click(startButton);
 
-      expect(startButton).not.toBeInTheDocument();
+      expect(mockStartGame).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("when the game is in the shuffling state", () => {
     beforeEach(async () => {
-      const user = userEvent.setup();
-      renderGameAreaWithContext();
-      const startButton = screen.getByText("Start game");
-      await user.click(startButton);
+      renderGameAreaWithContext("shuffling");
     });
 
     it("should hide the ball", () => {
@@ -74,39 +114,70 @@ describe("GameArea", () => {
       expect(screen.getByText("Shuffling...")).toBeInTheDocument();
     });
 
-    // TODO: fix tests
-    // it(`should call the exchangeTwoCups function ${NUMBER_OF_SHUFFLES} times`, () => {
-    //   expect(exchangeTwoCups).toHaveBeenCalledTimes(NUMBER_OF_SHUFFLES);
-    // });
-
-    it.todo("should keep the ball under the same cup");
+    it("should not show the Start game button", () => {
+      expect(screen.queryByText("Start game")).not.toBeInTheDocument();
+    });
   });
 
-  // TODO: fix these tests
-  // describe("when the game is in the finished shuffling state", () => {
-  //   beforeEach(async () => {
-  //     jest.useFakeTimers();
-  //     const user = userEvent.setup();
-  //     renderGameAreaWithContext()
+  describe("when the game is in the playing state", () => {
+    beforeEach(async () => {
+      renderGameAreaWithContext("playing");
+    });
 
-  //     const startButton = screen.getByText("Start game");
-  //     await user.click(startButton);
+    it("should not show the ball", () => {
+      expect(screen.queryByTestId("ball")).not.toBeInTheDocument();
+    });
 
-  //     await act(async () => {
-  //       jest.advanceTimersByTime(NUMBER_OF_SHUFFLES * 1000);
-  //     });
-  //   });
+    it("should prompt the user to choose a cup", () => {
+      expect(screen.getByText("Choose your bet!")).toBeInTheDocument();
+    });
 
-  //   afterEach(() => {
-  //     jest.useRealTimers();
-  //   });
+    it("should not show the Start game button", () => {
+      expect(screen.queryByText("Start game")).not.toBeInTheDocument();
+    });
+  });
 
-  //   it("should not show the ball", () => {
-  //     expect(screen.queryByTestId("ball")).not.toBeInTheDocument();
-  //   });
+  describe("when the game is in the win state", () => {
+    beforeEach(() => {
+      renderGameAreaWithContext("win");
+    });
 
-  //   it("should prompt the user to choose a cup", () => {
-  //     expect(screen.getByText("Guess where the ball is!")).toBeInTheDocument();
-  //   });
-  // });
+    it("should show the win message", () => {
+      expect(screen.getByText("You win! 🎉")).toBeInTheDocument();
+    });
+
+    it("should show the ball under the cup with the ball", () => {
+      const cupWithBall = screen.getByTestId(
+        `cup-container-for-${mockCupWithBallIndex}`
+      );
+
+      expect(cupWithBall).toContainElement(screen.getByTestId("ball"));
+    });
+
+    it("should show the Start game button", () => {
+      expect(screen.queryByText("Start game")).toBeInTheDocument();
+    });
+  });
+
+  describe("when the game is in the lose state", () => {
+    beforeEach(() => {
+      renderGameAreaWithContext("lose");
+    });
+
+    it("should show the lose message", () => {
+      expect(screen.getByText("You lose! 🥺")).toBeInTheDocument();
+    });
+
+    it("should show the ball under the cup with the ball", () => {
+      const cupWithBall = screen.getByTestId(
+        `cup-container-for-${mockCupWithBallIndex}`
+      );
+
+      expect(cupWithBall).toContainElement(screen.getByTestId("ball"));
+    });
+
+    it("should show the Start game button", () => {
+      expect(screen.queryByText("Start game")).toBeInTheDocument();
+    });
+  });
 });
