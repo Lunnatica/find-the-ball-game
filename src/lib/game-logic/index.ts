@@ -4,22 +4,15 @@ export const chooseRandomCup = (numberOfCups: number) => {
   return Math.floor(Math.random() * numberOfCups);
 };
 
-export const swapAnimation = (
-  startX: number,
-  startY: number,
-  endX: number,
-  endY: number
-) => keyframes`
+export const swapAnimation = (startX: number, endX: number) => keyframes`
   0% {
-    transform: translate(0, 0);
+    transform: translateX(0, 0);
   }
   50% {
-    transform: translate(${(endX - startX) / 2}px, ${
-  (endY - startY) / 2
-}px) scale(1);
+    transform: translateX(${(endX - startX) / 2}px);
   }
   100% {
-    transform: translate(${endX - startX}px, ${endY - startY}px);
+    transform: translateX(${endX - startX}px);
   }
 `;
 

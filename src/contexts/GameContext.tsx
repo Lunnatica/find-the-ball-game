@@ -73,10 +73,10 @@ const GameContextProvider: React.FC<ProviderProps> = ({ children }) => {
     const [index1, index2] = getIndicesToSwap(INITIAL_NUMBER_OF_CUPS);
     setAnimations({
       [index1]: css`
-        ${swapAnimation(index1 * CUP_WIDTH, 0, index2 * CUP_WIDTH, 0)}
+        ${swapAnimation(index1 * CUP_WIDTH, index2 * CUP_WIDTH)}
       `,
       [index2]: css`
-        ${swapAnimation(index2 * CUP_WIDTH, 0, index1 * CUP_WIDTH, 0)}
+        ${swapAnimation(index2 * CUP_WIDTH, index1 * CUP_WIDTH)}
       `,
     });
 
