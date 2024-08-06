@@ -38,3 +38,6 @@ If you wish to change the Game Difficulty Settings (e.g. adding more shells, or 
 - Using an animations library (e.g. [react-spring](https://www.react-spring.dev/)) to manage transitions in a smoother manner.
 - Allowing users to update Game Settings on the UI.
 - Adding a score counter.
+- Only passing a test ID if the environment is test, to prevent cup ID being shown on the DOM.
+- Improve accessibility (e.g. focus on first cup when initiating playing state).
+- Adjust cup gap dependant on mobile/desktop.
